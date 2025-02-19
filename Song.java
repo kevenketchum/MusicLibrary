@@ -37,13 +37,16 @@ public class Song{
 	}
 	
 	public void setRating(int rate) {
-		if(rate >= 1 && rate <= 5) {
-			rating = rate;
+		if (rate = 5){
+			favorite = setfavorite();
 		}
+		if(rate >= 1 && rate < 5) {
+			rating = rate;
+		} 
 	}
 	
 	public void setFavorite() {
-		favorite = !favorite;
+		favorite = true;
 	}
 	
 	
