@@ -15,24 +15,28 @@ public class Song{
 		favorite = false;
 	}
 	
+	public Song(Song music) {
+		this.Song = music;
+	}
+	
 	//Getters/Setters
-	String getName() {
+	public String getName() {
 		return name;
 	}
 	
-	String getAlbum() {
+	public String getAlbum() {
 		return album;
 	}
 	
-	String getAuthor() {
+	public String getAuthor() {
 		return author;
 	}
 	
-	String getRating() {
+	public String getRating() {
 		return rating;
 	}
 	
-	String getFavorite() {
+	public String getFavorite() {
 		return favorite;
 	}
 	
