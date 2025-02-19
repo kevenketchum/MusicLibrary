@@ -16,33 +16,33 @@ public class Song{
 	}
 	
 	//Getters/Setters
-	String getName() {
+	public String getName() {
 		return name;
 	}
 	
-	String getAlbum() {
+	public String getAlbum() {
 		return album;
 	}
 	
-	String getAuthor() {
+	public String getAuthor() {
 		return author;
 	}
 	
-	String getRating() {
+	public String getRating() {
 		return rating;
 	}
 	
-	String getFavorite() {
+	public String getFavorite() {
 		return favorite;
 	}
 	
-	void setRating(int rate) {
+	public void setRating(int rate) {
 		if(rate >= 1 && rate <= 5) {
 			rating = rate;
 		}
 	}
 	
-	void setFavorite() {
+	public void setFavorite() {
 		favorite = !favorite;
 	}
 	
