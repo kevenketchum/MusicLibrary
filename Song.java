@@ -1,10 +1,12 @@
 public class Song{
 	//Instance variables
 	final private String name;
+	//Might even want to delete album
 	final private String album;
 	final private String author;
 	private int rating;
 	private boolean favorite;
+
 	
 	//Constructor
 	public Song(String name, String album, String author) {
@@ -13,10 +15,6 @@ public class Song{
 		this.author = author;
 		rating = 0;
 		favorite = false;
-	}
-	
-	public Song(Song music) {
-		this.Song = music;
 	}
 	
 	//Getters/Setters
@@ -32,17 +30,17 @@ public class Song{
 		return author;
 	}
 	
-	public String getRating() {
+	public int getRating() {
 		return rating;
 	}
 	
-	public String getFavorite() {
+	public boolean getFavorite() {
 		return favorite;
 	}
 	
 	public void setRating(int rate) {
-		if (rate = 5){
-			favorite = setfavorite();
+		if (rate == 5){
+			setFavorite();
 		}
 		if(rate >= 1 && rate < 5) {
 			rating = rate;
@@ -52,7 +50,6 @@ public class Song{
 	public void setFavorite() {
 		favorite = true;
 	}
-	
 	
 	
 }
