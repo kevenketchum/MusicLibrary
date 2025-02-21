@@ -51,5 +51,8 @@ public class Song{
 		favorite = true;
 	}
 	
+	public void printSong() {
+		System.out.println(name+ ", "+author+ ", "+album+".");
+	}
 	
 }

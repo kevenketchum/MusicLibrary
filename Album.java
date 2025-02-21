@@ -2,16 +2,16 @@ import java.util.ArrayList;
 
 public class Album {
 	private ArrayList<Song> songs;
-	private  String date;
+	//private  String date;
 	private String albumInfo;
-	private String name;
-	private String artist;
-	public Album() {
+	private final String name;
+	private final String artist;
+	public Album(String name, String artist) {
 		songs = new ArrayList<Song>();
-		date = new String();
+		//date = new String();
 		albumInfo = new String();
-		name = new String();
-		artist = new String();
+		this.name = name;
+		this.artist = artist;
 	}
 	
 	public Song getSongAt(int index) {
@@ -27,10 +27,6 @@ public class Album {
 		return songs.size();
 	}
 	
-	public void setArtist(String artist) {
-		this.artist = artist;
-	}
-	
 	public String getArtist() {
 		return artist;
 	}
@@ -38,7 +34,7 @@ public class Album {
 	public void addSong(Song music) {
 		songs.add(music);
 	}
-	
+	/*
 	public String getDate() {
 		return date;
 	}
@@ -46,6 +42,7 @@ public class Album {
 	public void setDate(String date) {
 		this.date = date;
 	}
+	*/
 	
 	public void setAlbumInfo(String info) {
 		albumInfo = info;
@@ -59,13 +56,12 @@ public class Album {
 		return name;
 	}
 	
-	public void setName(String name) {
-		this.name = name;
+	public void printAlbum() {
+		System.out.println(albumInfo);
+		for(int i = 0; i < songs.size(); i += 1) {
+			System.out.println(songs.get(i));
+		}
 	}
-	
-	@Override
-	public String toString() {
-		
-	}
+
 	
 }
