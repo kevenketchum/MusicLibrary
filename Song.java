@@ -6,6 +6,7 @@ public class Song{
 	final private String author;
 	private int rating;
 	private boolean favorite;
+	private boolean inLibrary;
 
 	
 	//Constructor
@@ -15,6 +16,7 @@ public class Song{
 		this.author = author;
 		rating = 0;
 		favorite = false;
+		inLibrary = false;
 	}
 	
 	//Getters/Setters
@@ -49,6 +51,14 @@ public class Song{
 	
 	public void setFavorite() {
 		favorite = true;
+	}
+	
+	public void addToLibrary() {
+		inLibrary = true;
+	}
+	
+	public boolean inLibrary() {
+		return inLibrary;
 	}
 	
 	public void printSong() {

@@ -6,12 +6,14 @@ public class Album {
 	private String albumInfo;
 	private final String name;
 	private final String artist;
+	private boolean inLibrary;
 	public Album(String name, String artist) {
 		songs = new ArrayList<Song>();
 		//date = new String();
 		albumInfo = new String();
 		this.name = name;
 		this.artist = artist;
+		inLibrary = false;
 	}
 	
 	public Song getSongAt(int index) {
@@ -61,6 +63,14 @@ public class Album {
 		for(int i = 0; i < songs.size(); i += 1) {
 			System.out.println(songs.get(i));
 		}
+	}
+	
+	public void addToLibrary() {
+		inLibrary = true;
+	}
+	
+	public boolean inLibrary() {
+		return inLibrary;
 	}
 
 	

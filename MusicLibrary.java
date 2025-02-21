@@ -99,72 +99,125 @@ public class MusicLibrary{
 			System.out.println("Artist: "+artist+" not found on music Library.");
 		}
 	}
-	//For all playlist search, it repeats values if same song is in multiple playlists
-	public void searchPlaylistSongByTittle(String title) {
+	
+	//Add songs or albums into library
+	public void addSongToLibrary(String title) {
 		boolean found = true;
-		for(Playlist p : allPlaylist) {
-			ArrayList<Song> songs = new ArrayList<Song>(p.getSongs());
-			for(Song s : songs) {
-				if(s.getName().equals(title)) {
-					found = false;
-					printSong(s);
-				}
+		for(Song a : musicLibrary) {
+			if(a.getName().equals(title)) {
+				found = false;
+				a.addToLibrary();
+			}
+		}
+		System.out.println("Song "+title+" not found on Music Store");
+	}
+	
+	public void addAlbumToLibrary(String title) {
+		boolean found = true;
+		for(Album a : albumList) {
+			if(a.getName().equals(title)) {
+				a.addToLibrary();
 			}
 		}
 		if(found) {
-			System.out.println("Song: "+title+" not found on any playlist.");
+			System.out.println("Album "+title+" not found on Music Store");
 		}
 	}
-	
-	public void searchPlaylistSongByArtist(String artist) {
-		boolean found = true;
-		for(Playlist p : allPlaylist) {
-			ArrayList<Song> songs = new ArrayList<Song>(p.getSongs());
-			for(Song s : songs) {
-				if(s.getAuthor().equals(artist)) {
-					found = false;
-					printSong(s);
-				}
+
+	//Print information on user Library
+	public void searchLibrarySongByTittle(String title) {
+		boolean found= true;
+		for(Song s : musicLibrary) {
+			if(s.getName().equals(title) && s.inLibrary()) {
+				found = false;
+				printSong(s);
 			}
 		}
 		if(found) {
-			System.out.println("Artist: "+artist+" not found on any playlist.");
+			System.out.println("Song: "+title+" not found on personal Library.");
 		}
+		
+
 	}
 	
-	public void searchPlaylistAlbumByTittle(String title) {
+	public void searchLibrarySongByArtist(String artist) {
 		boolean found = true;
-		for(Playlist p : allPlaylist) {
-			ArrayList<Album> album = new ArrayList<Album>(p.getAlbums());
-			for(Album a : album) {
-				if(a.getName().equals(title)) {
-					found = false;
-					printAlbum(a);
-				}
+		for(Song s : musicLibrary) {
+			if(s.getAuthor().equals(artist) && s.inLibrary()) {
+				found = false;
+				printSong(s);
 			}
 		}
 		if(found) {
-			System.out.println("Song: "+title+" not found on any playlist.");
-		}
+			System.out.println("Artist: "+artist+" not found on personal Library.");		}
 	}
 	
-	public void searchPlaylistAlbumByArtist(String artist) {
+	public void searchLibraryAlbumbyTittle(String title) {
 		boolean found = true;
-		for(Playlist p : allPlaylist) {
-			ArrayList<Album> album = new ArrayList<Album>(p.getAlbums());
-			for(Album a : album) {
-				if(a.getArtist().equals(artist)) {
-					found = false;
-					printAlbum(a);
-				}
+		for(Album a : albumList) {
+			if(a.getName().equals(title) && a.inLibrary()) {
+				found = false;
+				printAlbum(a);
 			}
 		}
 		if(found) {
-			System.out.println("Song: "+artist+" not found on any playlist.");
+			System.out.println("Album: "+title+" not found on personal Library.");		}
+	}
+	
+	public void searchLibraryAlbumByArtist(String artist) {
+		boolean found = true;
+		for(Album a : albumList) {
+			if(a.getArtist().equals(artist) && a.inLibrary()) {
+				found = false;
+				printAlbum(a);
+			}
+		}
+		if(found) {
+			System.out.println("Artist: "+artist+" not found on personal Library.");
 		}
 	}
 	
-	//Add something to the Library
+	//Playlist management
+	public void createPlaylist(String name) {
+		allPlaylist.add(new Playlist(name));
+	}
 	
-	//
+	//Check if correct, or if a diff way to store Song obj to Playlist obj
+	//If song in playlist then in user library?
+	public void addSongToPlaylist(String song, String name) {
+		for(Playlist p : allPlaylist) {
+			if(p.getName().equals(name)) {
+				if(!p.containSong(song)) {
+					for(Song s : musicLibrary) {
+						if(s.getName().equals(song)) {
+							p.addSongtoPlaylist(s);
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	
+	//Song rating
+	
+	//What happens if a song was rate 5 and the  it switches to rate 1?
+	public void rateSong(String name, int rating) {
+		if(rating < 1 || rating > 6) {
+			System.out.println("rating: "+rating+" invalid.");
+			return;
+		}
+		boolean found = true;
+		for(Song s : musicLibrary) {
+			if(s.getName().equals(name)) {
+				s.setRating(rating);
+				found = false;
+			}
+		}
+		if(found) {
+			System.out.println("Song: "+"name"+" not found on music library.");
+		}
+		
+	}
+	
 }
