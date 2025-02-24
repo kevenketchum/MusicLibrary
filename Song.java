@@ -1,54 +1,64 @@
-public class Song{
-	//Instance variables
-	final private String name;
-	final private String album;
-	final private String author;
-	private int rating;
-	private boolean favorite;
-	
-	//Constructor
-	public Song(String name, String album, String author) {
-		this.name = name;
-		this.album = album;
-		this.author = author;
-		rating = 0;
-		favorite = false;
-	}
-	
-	//Getters/Setters
-	public String getName() {
-		return name;
-	}
-	
-	public String getAlbum() {
-		return album;
-	}
-	
-	public String getAuthor() {
-		return author;
-	}
-	
-	public String getRating() {
-		return rating;
-	}
-	
-	public String getFavorite() {
-		return favorite;
-	}
-	
-	public void setRating(int rate) {
-		if (rate = 5){
-			favorite = setfavorite();
-		}
-		if(rate >= 1 && rate < 5) {
-			rating = rate;
-		} 
-	}
-	
-	public void setFavorite() {
-		favorite = true;
-	}
-	
-	
-	
+package music;
+
+public class Song {
+    private final String name;
+    private final String album;
+    private final String author;
+    private int rating;
+    private boolean favorite;
+    private boolean inLibrary;
+
+    public Song(String name, String album, String author) {
+        this.name = name;
+        this.album = album;
+        this.author = author;
+        this.rating = 0;
+        this.favorite = false;
+        this.inLibrary = false;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getAlbum() {
+        return album;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public boolean isFavorite() {
+        return favorite;
+    }
+
+    public boolean isInLibrary() {
+        return inLibrary;
+    }
+
+    public void setRating(int rate) {
+        if (rate == 5) {
+            setFavorite();
+        }
+        if (rate >= 1 && rate <= 5) {
+            this.rating = rate;
+        }
+    }
+
+    public void setFavorite() {
+        this.favorite = true;
+    }
+
+    public void addToLibrary() {
+        this.inLibrary = true;
+    }
+
+    public void printSong() {
+        System.out.println(name + " by " + author + " from album " + album + " | Rating: " + rating + " | Favorite: " + favorite);
+    }
 }
