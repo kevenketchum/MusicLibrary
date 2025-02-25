@@ -1,19 +1,26 @@
 package music;
 
+/* 
+ * Class LibraryItem.Java, Parameters: Name, List of Songs, and inLibrary
+ * This class represents the Users Library, containing the Albums and the songs of the user
+ * */
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class LibraryItem {
-    protected final String name;
+    //Instance variables
+	protected final String name;
     protected final List<Song> songs;
     protected boolean inLibrary;
-
+    
+    //LibraryItem Initializer
     public LibraryItem(String name) {
         this.name = name;
         this.songs = new ArrayList<>();
         this.inLibrary = false;
     }
-
+    
+    //Getters/Setters
     public String getName() {
         return name;
     }
@@ -28,6 +35,10 @@ public abstract class LibraryItem {
 
     public void addToLibrary() {
         this.inLibrary = true;
+    }
+    
+    public voide removeFromLibrary() {
+    	this.inLibrary = false;
     }
 
     public void addSong(Song song) {

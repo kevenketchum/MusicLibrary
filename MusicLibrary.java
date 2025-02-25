@@ -37,4 +37,70 @@ public class MusicLibrary {
     public void addPlaylist(Playlist playlist) {
         allPlaylists.add(playlist);
     }
+    
+    //Search in Users Library By name
+    
+    public String searchSongByTitle(String title) {
+    	for (Song song : musicLibrary) {
+    		if (song.getName().equalsIgnoreCase(title)) {
+    			return song.getName() + " by " + song.getAuthor() + " from album " + song.getAlbum();
+    			}
+            }
+        return "Song not found in User's Library.";
+    }
+
+    public String searchAlbumByTitle(String title) {
+        for (Album album : albumList) {
+            if (album.getName().equalsIgnoreCase(title)) {
+            	album.printItem();
+            	}
+                return "Album: " + album.getName() + " by " + album.getArtist();
+            }
+        }
+        return "Album not found in user's Library.";
+    }
+    
+    //Search in Users Library by Artist
+    
+    
+    public String searchSongByArtist(String artist) {
+    	for (Song song : musicLibrary) {
+    		if (song.getAuthor().equalsIgnoreCase(artist)) {
+    			return song.getName() + " by " + song.getAuthor() + " from album " + song.getAlbum();
+    			}
+            }
+        return "Artist not found in User's Library.";
+    }
+
+    public String searchAlbumByArtist(String artist) {
+        for (Album album : albumList) {
+            if (album.getArtist().equalsIgnoreCase(artist)) {
+            	album.printItem();
+                return "Album: " + album.getName() + " by " + album.getArtist();
+            }
+        }
+        return "Artist not found in user's Library.";
+    }
+    
+    //PLayList operations
+    public Playlist getPlaylist(String name) {
+    	for(Playlist play : allPlaylists) {
+    		if(play.getName().equalsIgnoreCase(name)) {
+    			return play;
+    		}
+    	}
+    }
+    
+    
+    //Returns false when PLayList not found in users Library
+    public boolean searchForPlaylist(String playList) {
+    	for(Playlist play : allPlaylists) {
+    		if(play.getName().equalsIgnoreCase(playList)) {
+    			play.printItem();
+    			return true;
+    		}
+    	}
+    	return false;
+    }
+    
 }
