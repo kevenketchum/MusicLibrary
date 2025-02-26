@@ -40,46 +40,61 @@ public class MusicLibrary {
     
     //Search in Users Library By name
     
-    public String searchSongByTitle(String title) {
+    public void searchSongByTitle(String title) {
+    	boolean found = false;
     	for (Song song : musicLibrary) {
     		if (song.getName().equalsIgnoreCase(title)) {
-    			return song.getName() + " by " + song.getAuthor() + " from album " + song.getAlbum();
+    			song.printItem();
+    			found = true;
     			}
             }
-        return "Song not found in User's Library.";
+    	
+    	if(!found) {
+    		System.out.println("Song not found in User's Library.");
+    	}
     }
 
-    public String searchAlbumByTitle(String title) {
+    public void searchAlbumByTitle(String title) {
+    	boolean found = false;
         for (Album album : albumList) {
             if (album.getName().equalsIgnoreCase(title)) {
             	album.printItem();
+            	found = true;
             	}
-                return "Album: " + album.getName() + " by " + album.getArtist();
             }
         }
-        return "Album not found in user's Library.";
+    if(!found){
+    	System.out.println("Album not found in user's Library.");
+    	}    
     }
     
     //Search in Users Library by Artist
     
     
-    public String searchSongByArtist(String artist) {
+    public void searchSongByArtist(String artist) {
+    	boolean found = false;
     	for (Song song : musicLibrary) {
     		if (song.getAuthor().equalsIgnoreCase(artist)) {
-    			return song.getName() + " by " + song.getAuthor() + " from album " + song.getAlbum();
+    			song.printItem();
+    			found = true;
     			}
             }
-        return "Artist not found in User's Library.";
+    	if(!found) {
+    		System.out.println("Artist not found in User's Library.");
+    	}
     }
 
-    public String searchAlbumByArtist(String artist) {
+    public void searchAlbumByArtist(String artist) {
+    	boolean found = false;
         for (Album album : albumList) {
             if (album.getArtist().equalsIgnoreCase(artist)) {
             	album.printItem();
-                return "Album: " + album.getName() + " by " + album.getArtist();
+            	found = true;
             }
         }
-        return "Artist not found in user's Library.";
+        if(!found) {
+        	System.out.println("Artist not found in user's Library.");
+        }
     }
     
     //PLayList operations
@@ -89,16 +104,21 @@ public class MusicLibrary {
     			return play;
     		}
     	}
+    	return null;
     }
     
     
     //Returns false when PLayList not found in users Library
-    public boolean searchForPlaylist(String playList) {
+    public void getPlaylistInfo(String playList) {
+    	boolean found = false;
     	for(Playlist play : allPlaylists) {
     		if(play.getName().equalsIgnoreCase(playList)) {
     			play.printItem();
-    			return true;
+    			found = true;
     		}
+    	}
+    	if(!found) {
+    		System.out.println("Playlist with name: "+playlist+" not found.");
     	}
     	return false;
     }

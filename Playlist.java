@@ -1,6 +1,6 @@
 package music;
 
-import java.util.List;
+import java.util.ArrayList;
 //PLaylist needs to add and remove songs from it so I removed the extend from libraryItem to make it its own Object
 public class Playlist {
 
@@ -16,10 +16,17 @@ public class Playlist {
     }
     
     public void removeSong(String tittle) {
+    	Song remove;
     	for(Song s : songs) {
     		if(s.getName().equalsIgnoreCase(tittle)) {
-    			songs.remove(s);
+    			remove = s;
     		}
+    	}
+    	if(remove == null) {
+    		System.out.println("Song does not exist on playlist");
+    	}
+    	else {
+    		songs.remove(remove);
     	}
     }
     
@@ -27,7 +34,7 @@ public class Playlist {
     	return this.name;
     }
     
-    public void
+ 
     @Override
     public void printItem() {
         System.out.println("Playlist: " + name);

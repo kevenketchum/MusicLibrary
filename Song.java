@@ -51,7 +51,8 @@ public class Song {
     public boolean isInLibrary() {
         return inLibrary;
     }
-
+    
+    //If rating is 5 automatically set to favorites
     public void setRating(int rate) {
         if (rate == 5) {
             setFavorite();
