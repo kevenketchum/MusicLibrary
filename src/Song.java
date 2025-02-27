@@ -7,30 +7,25 @@ package music;
  * and prints()
  * */
 
-public class Song {
+public class Song extends LibraryItem {
 	
 	//Instance Variables
-    private final String name;
     private final String album;
     private final String author;
     private int rating;
     private boolean favorite;
-    private boolean inLibrary;
     
     //Song Object Initializer
     public Song(String name, String album, String author) {
-        this.name = name;
+        super(name);
         this.album = album;
         this.author = author;
         this.rating = 0;
         this.favorite = false;
-        this.inLibrary = false;
     }
 
     //Getters/Setters
-    public String getName() {
-        return name;
-    }
+
 
     public String getAlbum() {
         return album;
@@ -48,10 +43,7 @@ public class Song {
         return favorite;
     }
 
-    public boolean isInLibrary() {
-        return inLibrary;
-    }
-    
+
     //If rating is 5 automatically set to favorites
     public void setRating(int rate) {
         if (rate == 5) {
@@ -69,9 +61,6 @@ public class Song {
         this.favorite = true;
     }
 
-    public void addToLibrary() {
-        this.inLibrary = true;
-    }
 
     public void printSong() {
         System.out.println(name + " by " + author + " from album " + album + " | Rating: " + rating + " | Favorite: " + favorite);
