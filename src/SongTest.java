@@ -1,4 +1,6 @@
 import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.Test;
 public class SongTest {
 
     @Test
@@ -46,6 +48,7 @@ public class SongTest {
 
     @Test
     void testAddToLibrary() {
+    	Song song = new Song("name", "album", "author");
         assertFalse(song.isInLibrary());
         song.addToLibrary();
         assertTrue(song.isInLibrary());

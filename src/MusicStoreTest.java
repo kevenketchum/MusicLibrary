@@ -1,21 +1,24 @@
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.List;
+
+import org.junit.Test;
+
 
 public class MusicStoreTest {
 	    @Test
-	    void testAddAlbum() {
+	    public void testAddAlbum() {
 	    	MusicStore store = new MusicStore();
 
 	        Song song1 = new Song("Bohemian Rhapsody", "A Night at the Opera", "Queen");
 	        Song song2 = new Song("Imagine", "Imagine", "John Lennon");
 
-	        List<Song> album1Songs = new ArrayList<>();
-	        album1Songs.add(song1);
-	        Album album1 = new Album("A Night at the Opera", "Queen", album1Songs);
+	        Album album1 = new Album("A Night at the Opera", "Queen");
+	        album1.addSong(song1);
 
-	        List<Song> album2Songs = new ArrayList<>();
-	        album2Songs.add(song2);
-	        Album album2 = new Album("Imagine", "John Lennon", album2Songs);
+
+	        Album album2 = new Album("Imagine", "John Lennon");
+	        album2.addSong(song2);
 
 	        store.addAlbum(album1);
 	        store.addAlbum(album2);
@@ -27,11 +30,11 @@ public class MusicStoreTest {
 	    }
 
 	    @Test
-	    void testSearchSongByTitle() {MusicStore store = new MusicStore();
+	    public void testSearchSongByTitle() {
+	    MusicStore store = new MusicStore();
         Song song1 = new Song("Bohemian Rhapsody", "A Night at the Opera", "Queen");
-        List<Song> album1Songs = new ArrayList<>();
-        album1Songs.add(song1);
-        Album album1 = new Album("A Night at the Opera", "Queen", album1Songs);
+        Album album1 = new Album("A Night at the Opera", "Queen");
+        album1.addSong(song1);
 
         store.addAlbum(album1);
         
@@ -40,11 +43,12 @@ public class MusicStoreTest {
 	    }
 
 	    @Test
-	    void testSearchAlbumByTitle() {
+	    public void testSearchAlbumByTitle() {
+	    	MusicStore store = new MusicStore();
 	    	Song song1 = new Song("Bohemian Rhapsody", "A Night at the Opera", "Queen");
-	        List<Song> album1Songs = new ArrayList<>();
-	        album1Songs.add(song1);
-	        Album album1 = new Album("A Night at the Opera", "Queen", album1Songs);
+
+	        Album album1 = new Album("A Night at the Opera", "Queen");
+	        album1.addSong(song1);
 	        
 	        store.addAlbum(album1);
 
@@ -54,24 +58,23 @@ public class MusicStoreTest {
 	    }
 
 	    @Test
-	    void testSearchSongByArtist() {
+	    public void testSearchSongByArtist() {
 	    	MusicStore store = new MusicStore();
 
 	        Song song1 = new Song("Bohemian Rhapsody", "A Night at the Opera", "Queen");
 	        Song song2 = new Song("Don't Stop Me Now", "Jazz", "Queen");
 	        Song song3 = new Song("Imagine", "Imagine", "John Lennon");
 
-	        List<Song> album1Songs = new ArrayList<>();
-	        album1Songs.add(song1);
-	        Album album1 = new Album("A Night at the Opera", "Queen", album1Songs);
 
-	        List<Song> album2Songs = new ArrayList<>();
-	        album2Songs.add(song2);
-	        Album album2 = new Album("Jazz", "Queen", album2Songs);
+	        Album album1 = new Album("A Night at the Opera", "Queen");
+	        album1.addSong(song1);
 
-	        List<Song> album3Songs = new ArrayList<>();
-	        album3Songs.add(song3);
-	        Album album3 = new Album("Imagine", "John Lennon", album3Songs);
+
+	        Album album2 = new Album("Jazz", "Queen");
+	        album2.addSong(song2);
+
+	        Album album3 = new Album("Imagine", "John Lennon");
+	        album3.addSong(song3);
 
 	        store.addAlbum(album1);
 	        store.addAlbum(album2);
@@ -85,7 +88,7 @@ public class MusicStoreTest {
 	    }
 
 	    @Test
-	    void testSearchAlbumByArtist() {
+	    public void testSearchAlbumByArtist() {
 	    	MusicStore store = new MusicStore();
 
 	        Album album1 = new Album("A Night at the Opera", "Queen");

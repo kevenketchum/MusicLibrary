@@ -1,12 +1,15 @@
+
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
 
 public class albumTest {
 
     @Test
     void testInitialization() {
     	Album album = new Album("Thriller", "Michael Jackson");
-    	Song song1 = new Song("Billie Jean", "Thriller", "Michael Jackson");
-        Song song2 = new Song("Beat It", "Thriller", "Michael Jackson");
         assertEquals("Thriller", album.getName());
         assertEquals("Michael Jackson", album.getArtist());
         assertFalse(album.isInLibrary());

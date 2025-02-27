@@ -1,4 +1,4 @@
-package music;
+
 
 /* 
  * Class Song.java, Parameters: name, album, author, rating, favorite, inLibrary
@@ -62,7 +62,7 @@ public class Song extends LibraryItem {
     }
 
 
-    public void printSong() {
+    public void printItem() {
         System.out.println(name + " by " + author + " from album " + album + " | Rating: " + rating + " | Favorite: " + favorite);
     }
 }

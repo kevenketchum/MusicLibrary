@@ -1,5 +1,9 @@
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.List;
+
+import org.junit.Test;
+
 public class MusicLibraryTest {
     @Test
     void testAddSong() {
@@ -46,7 +50,7 @@ public class MusicLibraryTest {
     @Test
     void testSearchSongByTitle() {
     	MusicLibrary library = new MusicLibrary();
-        song1 = new Song("Bohemian Rhapsody", "A Night at the Opera", "Queen");
+        Song song1 = new Song("Bohemian Rhapsody", "A Night at the Opera", "Queen");
 
         library.addSong(song1);
         library.searchSongByTitle("Bohemian Rhapsody");
@@ -74,7 +78,7 @@ public class MusicLibraryTest {
         library.addSong(song2);
         library.searchSongByArtist("John Lennon");
         
-        result = library.searchSongByArtist("Nonexistent Artist");
+        library.searchSongByArtist("Nonexistent Artist");
     }
 
     @Test

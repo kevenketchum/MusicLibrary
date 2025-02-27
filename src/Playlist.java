@@ -34,6 +34,9 @@ public class Playlist {
     	return this.name;
     }
     
+    public ArrayList<Song> getSongs(){
+    	return new ArrayList<Song>(songs);
+    }
  
     public void printItem() {
         System.out.println("Playlist: " + name);
