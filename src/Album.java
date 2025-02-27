@@ -1,4 +1,3 @@
-package music;
 /* 
  * Class album.java, parameters: name, artist
  * Creates Album Object that extends LibraryItem : Class LibraryItem.Java, Parameters: Name, List of Songs, and inLibrary

@@ -1,4 +1,3 @@
-package music;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,7 +61,6 @@ public class MusicLibrary {
             	found = true;
             	}
             }
-        }
     if(!found){
     	System.out.println("Album not found in user's Library.");
     	}    
@@ -97,7 +95,7 @@ public class MusicLibrary {
         }
     }
     
-    //PLayList operations
+    //PlayList operations
     public Playlist getPlaylist(String name) {
     	for(Playlist play : allPlaylists) {
     		if(play.getName().equalsIgnoreCase(name)) {
@@ -118,9 +116,8 @@ public class MusicLibrary {
     		}
     	}
     	if(!found) {
-    		System.out.println("Playlist with name: "+playlist+" not found.");
+    		System.out.println("Playlist with name: "+playList+" not found.");
     	}
-    	return false;
     }
     
 }

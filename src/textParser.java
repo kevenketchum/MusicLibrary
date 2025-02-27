@@ -1,4 +1,3 @@
-package music;
 
 import java.io.*;
 import java.util.ArrayList;

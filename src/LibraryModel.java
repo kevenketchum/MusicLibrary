@@ -1,4 +1,3 @@
-package music;
 /*
  *Class LibraryModel, Parameters: musicStore, musicLibrary
  *This class represents the model and functionality of adding songs from the musicStore to
@@ -19,7 +18,7 @@ public class LibraryModel {
     
     //Adds song from the musicStore to the musicLibrary (User's)
     public boolean addSong(String title) {
-        for (Album album : musicStore.albums) {
+        for (Album album : musicStore.getAlbums()) {
             for (Song song : album.getSongs()) {
                 if (song.getName().equalsIgnoreCase(title)) {
                     song.addToLibrary();
@@ -32,7 +31,7 @@ public class LibraryModel {
     }
 
     public boolean addAlbum(String title) {
-        for (Album album : musicStore.albums) {
+        for (Album album : musicStore.getAlbums()) {
             if (album.getName().equalsIgnoreCase(title)) {
                 album.addToLibrary();
                 musicLibrary.addAlbum(album);
@@ -50,48 +49,43 @@ public class LibraryModel {
     
     public void addPlaylist(String name) {
     	Playlist add = new Playlist(name);
-    	musicLibray.addPLaylist(add);
+    	musicLibrary.addPlaylist(add);
     }
 
     
     //Add remove Songs from Playlist
     //kinda shitty remove/add from playlist, might change later
     public boolean addSongToPlaylist(String playlistName, String songName) {
-    	for(Playlist play : musicLibrary.allPlayLists) {
-    		if(play.getName().equalsIgnoreCase(playlistName)) {
-    			for (Album album : musicStore.albums) {
-    	            for (Song song : album.getSongs()) {
-    	                if (song.getName().equalsIgnoreCase(songName)) {
-    	                	play.addSong(song);
+    	Playlist play = musicLibrary.getPlaylist(playlistName);
+    	for (Album album : musicStore.getAlbums()) {
+    		for (Song song : album.getSongs()) {
+    			if (song.getName().equalsIgnoreCase(songName)) {
+    				play.addSong(song);
     	                }   
-    	            }
-    			}
     		return true;
     		}
     	}
     	return false;
    }
     
-    public boolean removeSongFromPlaylist(String playlistName, String songName) {
-    	for(Playlist play : musicLibrary.allPlayLists) {
-    		if(play.getName().equalsIgnoreCase(playlistName)) {
-    			for (Album album : musicStore.albums) {
-    	            for (Song song : album.getSongs()) {
-    	                if (song.getName().equalsIgnoreCase(songName)) {
-    	                	play.removeSong(song);
-    	                }   
-    	            }
-    			}
-    		return true;
-    		}
+    public void removeSongFromPlaylist(String playlistName, String songName) {
+    	Playlist play = musicLibrary.getPlaylist(playlistName);
+    	if(play == null) {
+    		System.out.println("Playlist: "+playlistName+" Does not exist.");
     	}
-    	return false;
+    	boolean answer = play.removeSong(songName);
+    	if(!answer) {
+    		System.out.println("Song: "+songName+" does not exist on MusicLibrary");
+    	}
+    	else {
+    		System.out.println("Succesfully added "+songName+" to "+playlistName+".");
+    	}
    }
     
     public String getAllLibraryItems() {
         StringBuilder sb = new StringBuilder();
         for (Song song : musicLibrary.getMusicLibrary()) {
-            song.printSong();
+            song.printItem();
         }
         for (Album album : musicLibrary.getAlbumList()) {
             album.printItem();
@@ -103,8 +97,8 @@ public class LibraryModel {
     }
     
     public void setRating(String songName, int rating) {
-    	for(Album album : musicStore.albums) {
-    		for(Song song : album.getSOngs()) {
+    	for(Album album : musicStore.getAlbums()) {
+    		for(Song song : album.getSongs()) {
     			if(song.getName().equalsIgnoreCase(songName)) {
     				song.setRating(rating);
     			}
@@ -113,7 +107,7 @@ public class LibraryModel {
     }
     
     public void getFavorites() {
-    	for(Album album : musicStore.albums) {
+    	for(Album album : musicStore.getAlbums()) {
     		for(Song song : album.getSongs()) {
     			if(song.isFavorite()) {
     				song.printItem();

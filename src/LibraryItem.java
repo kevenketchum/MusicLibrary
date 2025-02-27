@@ -1,4 +1,3 @@
-package music;
 
 /* 
  * Class LibraryItem.Java, Parameters: Name, List of Songs, and inLibrary
@@ -37,7 +36,7 @@ public abstract class LibraryItem {
         this.inLibrary = true;
     }
     
-    public voide removeFromLibrary() {
+    public void removeFromLibrary() {
     	this.inLibrary = false;
     }
 

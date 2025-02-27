@@ -1,10 +1,7 @@
-package music;
-
 import java.util.ArrayList;
-import java.util.List;
 
 public class MusicStore {
-    private final List<Album> albums;
+    private final ArrayList<Album> albums;
 
     public MusicStore() {
         this.albums = new ArrayList<>();
@@ -13,8 +10,12 @@ public class MusicStore {
     public void addAlbum(Album album) {
         albums.add(album);
     }
+    
+    public ArrayList<Album> getAlbums() {
+    	return new ArrayList<Album>(albums);
+    }
 
-    public String searchSongByTitle(String title) {
+    public void searchSongByTitle(String title) {
     	boolean found = false;
         for (Album album : albums) {
             for (Song song : album.getSongs()) {
@@ -29,7 +30,7 @@ public class MusicStore {
         }
     }
 
-    public String searchAlbumByTitle(String title) {
+    public void searchAlbumByTitle(String title) {
     	boolean found = false;
         for (Album album : albums) {
             if (album.getName().equalsIgnoreCase(title)) {
@@ -44,7 +45,7 @@ public class MusicStore {
     
     
     
-    public String searchSongByArtist(String artist) {
+    public void searchSongByArtist(String artist) {
     	boolean found = false;
         for (Album album : albums) {
             for (Song song : album.getSongs()) {
@@ -59,7 +60,7 @@ public class MusicStore {
         }
     }
     
-    public String searchAlbumByArtist(String artist) {
+    public void searchAlbumByArtist(String artist) {
     	boolean found = false;
         for (Album album : albums) {
             if (album.getArtist().equalsIgnoreCase(artist)) {
