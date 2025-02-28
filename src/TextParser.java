@@ -5,7 +5,7 @@ import java.util.List;
 
 public final class TextParser {
 
-    private TextParser() {
+    TextParser() {
         // Utility class - no instantiation
     }
 
