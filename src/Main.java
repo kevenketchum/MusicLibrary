@@ -1,8 +1,13 @@
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        MusicStore musicStore = new MusicStore();
+    	String albumDirectory = "C:\\Users\\alber\\Desktop\\ObjOrient_335\\MusicStoreJoseKeven\\Updated\\src\\albums";
+    	List<String> albumFiles = getAlbumFiles(albumDirectory);
+        MusicStore musicStore = new MusicStore(albumFiles);
         LibraryModel libraryModel = new LibraryModel(musicStore);
 
         Scanner scanner = new Scanner(System.in);
@@ -133,5 +138,29 @@ public class Main {
             }
         }
         scanner.close();
+    }
+    
+    
+    /**
+     * Retrieves all .txt files from the specified directory.
+     * @param directoryPath The directory containing the album files.
+     * @return A list of file paths to be read.
+     */
+    private static List<String> getAlbumFiles(String directoryPath) {
+        List<String> albumFiles = new ArrayList<>();
+        File directory = new File(directoryPath);
+
+        if (directory.exists() && directory.isDirectory()) {
+            File[] files = directory.listFiles((dir, name) -> name.endsWith(".txt"));
+            if (files != null) {
+                for (File file : files) {
+                    albumFiles.add(file.getAbsolutePath()); // Add absolute path for reliability
+                }
+            }
+        } else {
+            System.out.println("ERROR: Albums directory not found!");
+        }
+
+        return albumFiles;
     }
 }
