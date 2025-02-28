@@ -40,12 +40,12 @@ public class Main {
                 case "3" -> {
                     System.out.print("Enter the song title to add: ");
                     String songTitle = scanner.nextLine().trim();
-                    System.out.println(libraryModel.addSong(songTitle) ? "Song added to library." : "Song not found.");
+                    System.out.println(libraryModel.addSong(songTitle) ? "Song added to library." : "Song not found."); // return song added to library if addSong(songTitle) is true or can be done return song not found otherwise
                 }
                 case "4" -> {
                     System.out.print("Enter the album title to add: ");
                     String albumTitle = scanner.nextLine().trim();
-                    System.out.println(libraryModel.addAlbum(albumTitle) ? "Album added to library." : "Album not found.");
+                    System.out.println(libraryModel.addAlbum(albumTitle) ? "Album added to library." : "Album not found."); // return album added to library if addAlbum true Album not found otherwise
                 }
                 case "5" -> {
                     System.out.print("Enter the name of the new playlist: ");
@@ -62,7 +62,7 @@ public class Main {
                         String playlistName = scanner.nextLine().trim();
                         System.out.print("Enter the song title to add: ");
                         String songTitle = scanner.nextLine().trim();
-                        System.out.println(libraryModel.addSongToPlaylist(playlistName, songTitle) ? "Song added to playlist." : "Playlist or song not found.");
+                        System.out.println(libraryModel.addSongToPlaylist(playlistName, songTitle) ? "Song added to playlist." : "Playlist or song not found."); // return song added to playlist if true playlist or song not found otherwise
                 	}
                 	else if(addOrRemove.equals("2")) {
                 		System.out.print("Enter the playlist name: ");
