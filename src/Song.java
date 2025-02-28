@@ -52,9 +52,6 @@ public class Song extends LibraryItem {
         if (rate >= 1 && rate <= 5) {
             this.rating = rate;
         }
-        else {
-        	System.out.println("Rating should be between 1-5.");
-        }
     }
 
     public void setFavorite() {

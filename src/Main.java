@@ -17,8 +17,8 @@ public class Main {
             System.out.println("3. Add a song to your library");
             System.out.println("4. Add an album to your library");
             System.out.println("5. Create a playlist");
-            System.out.println("6. Add a song to a playlist");
-            System.out.println("7. Rate a song");
+            System.out.println("6. Add or Remove a song to a playlist");
+            System.out.println("7. Rate a song or add to favorites");
             System.out.println("8. Search in your library");
             System.out.println("9. View your library");
             System.out.println("10. Exit");
@@ -30,12 +30,12 @@ public class Main {
                 case "1" -> {
                     System.out.print("Enter song title: ");
                     String songTitle = scanner.nextLine().trim();
-                    System.out.println(musicStore.searchSongByTitle(songTitle));
+                    musicStore.searchSongByTitle(songTitle);
                 }
                 case "2" -> {
                     System.out.print("Enter album title: ");
                     String albumTitle = scanner.nextLine().trim();
-                    System.out.println(musicStore.searchAlbumByTitle(albumTitle));
+                    musicStore.searchAlbumByTitle(albumTitle);
                 }
                 case "3" -> {
                     System.out.print("Enter the song title to add: ");
@@ -54,36 +54,70 @@ public class Main {
                     System.out.println("Playlist '" + playlistName + "' created.");
                 }
                 case "6" -> {
-                    System.out.print("Enter the playlist name: ");
-                    String playlistName = scanner.nextLine().trim();
-                    System.out.print("Enter the song title to add: ");
-                    String songTitle = scanner.nextLine().trim();
-                    System.out.println(libraryModel.addSongToPlaylist(playlistName, songTitle) ? "Song added to playlist." : "Playlist or song not found.");
+                	System.out.println("1. Add a Song");
+                	System.out.println("2. Remove a Song");
+                	String addOrRemove = scanner.nextLine().trim();
+                	if(addOrRemove.equals("1")) {
+                		System.out.print("Enter the playlist name: ");
+                        String playlistName = scanner.nextLine().trim();
+                        System.out.print("Enter the song title to add: ");
+                        String songTitle = scanner.nextLine().trim();
+                        System.out.println(libraryModel.addSongToPlaylist(playlistName, songTitle) ? "Song added to playlist." : "Playlist or song not found.");
+                	}
+                	else if(addOrRemove.equals("2")) {
+                		System.out.print("Enter the playlist name: ");
+                        String playlistName = scanner.nextLine().trim();
+                        System.out.print("Enter the song title to remove: ");
+                        String songTitle = scanner.nextLine().trim();
+                        libraryModel.removeSongFromPlaylist(playlistName, songTitle);
+                	}
+                    
                 }
                 case "7" -> {
-                    System.out.print("Enter the song title to rate: ");
-                    String songTitle = scanner.nextLine().trim();
-                    System.out.print("Enter a rating (1-5): ");
-                    int rating = Integer.parseInt(scanner.nextLine().trim());
-                    libraryModel.setRating(songTitle, rating);
-                    System.out.println("Rating updated.");
+                	System.out.println("1. To Rate a Song");
+                	System.out.println("2. Set song to favorite");
+                	String rateOrFav = scanner.nextLine().trim();
+                	if(rateOrFav.equals("1")) {
+                		System.out.print("Enter the song title to rate: ");
+                        String songTitle = scanner.nextLine().trim();
+                        System.out.print("Enter a rating (1-5): ");
+                        int rating = Integer.parseInt(scanner.nextLine().trim());
+                        System.out.println(libraryModel.setRating(songTitle, rating) ? "Succesfully set the rating on song." : "Song not found or rating is not between 1-5.");
+                        System.out.println("Rating updated.");
+                	}
+                	else if(rateOrFav.equals("2")) {
+                		System.out.print("Enter the song title to add to favorites.");
+                        String songTitle = scanner.nextLine().trim();
+                        System.out.println(libraryModel.setFavorite(songTitle) ? "Succesfully put Song on favorites" : "Song not found or Song already favorite.");
+                	}
+                	else {
+                		
+                	}
+                    
                 }
                 case "8" -> {
                     System.out.println("Search your library by:");
                     System.out.println("1. Song title");
                     System.out.println("2. Album title");
+                    System.out.println("3. Playlist name");
                     System.out.print("Enter your choice: ");
                     String searchChoice = scanner.nextLine().trim();
 
                     if (searchChoice.equals("1")) {
                         System.out.print("Enter song title: ");
                         String songTitle = scanner.nextLine().trim();
-                        System.out.println(libraryModel.musicLibrary.searchSongByTitle(songTitle));
+                        libraryModel.librarySearchSongByTitle(songTitle);
                     } else if (searchChoice.equals("2")) {
                         System.out.print("Enter album title: ");
                         String albumTitle = scanner.nextLine().trim();
-                        System.out.println(libraryModel.musicLibrary.searchAlbumByTitle(albumTitle));
-                    } else {
+                        libraryModel.librarySearchAlbumByTitle(albumTitle);
+                    }
+                    else if(searchChoice.equals("3")) {
+                    	System.out.println("Enter Playlist name:");
+                    	String playlistName = scanner.nextLine().trim();
+                    	libraryModel.getPlaylistInfo(playlistName);
+                    }
+                    else {
                         System.out.println("Invalid choice.");
                     }
                 }

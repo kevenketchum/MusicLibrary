@@ -7,14 +7,14 @@ import org.junit.Test;
 public class PlaylistTest {
 
 	    @Test
-	    void testInitialization() {
+	    public void testInitialization() {
 	    	Playlist playlist = new Playlist("My Favorites");
 	        assertEquals("My Favorites", playlist.getName());
 	        assertTrue(playlist.getSongs().isEmpty());
 	    }
 
 	    @Test
-	    void testAddSong() {
+	    public void testAddSong() {
 	    	Playlist playlist = new Playlist("My Favorites");
 	        Song song1 = new Song("Bohemian Rhapsody", "A Night at the Opera", "Queen");
 	        Song song2 = new Song("Imagine", "Imagine", "John Lennon");
@@ -28,7 +28,7 @@ public class PlaylistTest {
 	    }
 
 	    @Test
-	    void testRemoveSong() {
+	    public void testRemoveSong() {
 	    	Playlist playlist = new Playlist("My Favorites");
 	        Song song1 = new Song("Bohemian Rhapsody", "A Night at the Opera", "Queen");
 	        Song song2 = new Song("Imagine", "Imagine", "John Lennon");
@@ -47,7 +47,7 @@ public class PlaylistTest {
 	    }
 
 	    @Test
-	    void testRemoveSongCaseInsensitive() {
+	    public void testRemoveSongCaseInsensitive() {
 	    	Playlist playlist = new Playlist("My Favorites");
 	        Song song1 = new Song("Bohemian Rhapsody", "A Night at the Opera", "Queen");
 	        Song song2 = new Song("Imagine", "Imagine", "John Lennon");
@@ -62,7 +62,7 @@ public class PlaylistTest {
 	    }
 
 	    @Test
-	    void testRemoveNonExistingSong() {
+	    public void testRemoveNonExistingSong() {
 	    	Playlist playlist = new Playlist("My Favorites");
 	        Song song1 = new Song("Bohemian Rhapsody", "A Night at the Opera", "Queen");
 	        Song song2 = new Song("Imagine", "Imagine", "John Lennon");

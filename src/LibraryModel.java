@@ -51,6 +51,22 @@ public class LibraryModel {
     	Playlist add = new Playlist(name);
     	musicLibrary.addPlaylist(add);
     }
+    
+    public void librarySearchSongByTitle(String title) {
+    	musicLibrary.searchSongByTitle(title);
+    }
+    
+    public void librarySearchAlbumByTitle(String title) {
+    	musicLibrary.searchAlbumByTitle(title);
+    }
+    
+    public void librarySearchSongByArtist(String artist) {
+    	musicLibrary.searchSongByArtist(artist);
+    }
+    
+    public void librarySearchAlbumByArtist(String artist) {
+    	musicLibrary.searchAlbumByArtist(artist);
+    }
 
     
     //Add remove Songs from Playlist
@@ -78,9 +94,13 @@ public class LibraryModel {
     		System.out.println("Song: "+songName+" does not exist on MusicLibrary");
     	}
     	else {
-    		System.out.println("Succesfully added "+songName+" to "+playlistName+".");
+    		System.out.println("Succesfully removed "+songName+" from "+playlistName+".");
     	}
    }
+    
+    public void getPlaylistInfo(String name) {
+    	musicLibrary.getPlaylistInfo(name);
+    }
     
     public String getAllLibraryItems() {
         StringBuilder sb = new StringBuilder();
@@ -96,14 +116,34 @@ public class LibraryModel {
         return sb.toString();
     }
     
-    public void setRating(String songName, int rating) {
+    public boolean setRating(String songName, int rating) {
+    	boolean found = false;
     	for(Album album : musicStore.getAlbums()) {
     		for(Song song : album.getSongs()) {
     			if(song.getName().equalsIgnoreCase(songName)) {
     				song.setRating(rating);
+    				found = true;
     			}
     		}
     	}
+    	return found;
+    }
+    
+    public boolean setFavorite(String songName) {
+    	for(Album album : musicStore.getAlbums()) {
+    		for(Song song : album.getSongs()) {
+    			if(song.getName().equalsIgnoreCase(songName)) {
+    				if(song.isFavorite()) {
+    					return false;
+    				}
+    				else {
+    					song.setFavorite();
+        				return true;
+    				}
+    			}
+    		}
+    	}
+    	return false;
     }
     
     public void getFavorites() {
