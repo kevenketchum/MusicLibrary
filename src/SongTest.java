@@ -4,7 +4,7 @@ import org.junit.Test;
 public class SongTest {
 
     @Test
-    void testInitializer() {
+    public void testInitializer() {
     	Song song = new Song("name", "album", "author");
         assertEquals("name", song.getName());
         assertEquals("album", song.getAlbum());
@@ -15,7 +15,7 @@ public class SongTest {
     }
 
     @Test
-    void testSetRating() {
+    public void testSetRating() {
     	Song song = new Song("name", "album", "author");
     	//Valid inputs
         song.setRating(3);
@@ -38,7 +38,7 @@ public class SongTest {
 
 
     @Test
-    void testSetFavorite() {
+    public void testSetFavorite() {
     	Song song = new Song("name", "album", "author");
         assertFalse(song.isFavorite());
         song.setFavorite();
@@ -47,7 +47,7 @@ public class SongTest {
     }
 
     @Test
-    void testAddToLibrary() {
+    public void testAddToLibrary() {
     	Song song = new Song("name", "album", "author");
         assertFalse(song.isInLibrary());
         song.addToLibrary();

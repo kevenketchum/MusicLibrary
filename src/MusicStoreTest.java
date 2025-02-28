@@ -38,7 +38,7 @@ public class MusicStoreTest {
 
         store.addAlbum(album1);
         
-	    store.searchSongByTitle("Bohemian Rhapsody");
+	    store.searchSongByTitle("bohemian rhapsody");
 	    store.searchSongByTitle("Nonexistent Song");
 	    }
 

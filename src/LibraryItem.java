@@ -4,12 +4,11 @@
  * This class represents the Users Library, containing the Albums and the songs of the user
  * */
 import java.util.ArrayList;
-import java.util.List;
 
 public abstract class LibraryItem {
     //Instance variables
 	protected final String name;
-    protected final List<Song> songs;
+    protected final ArrayList<Song> songs;
     protected boolean inLibrary;
     
     //LibraryItem Initializer
@@ -24,7 +23,7 @@ public abstract class LibraryItem {
         return name;
     }
 
-    public List<Song> getSongs() {
+    public ArrayList<Song> getSongs() {
         return songs;
     }
 

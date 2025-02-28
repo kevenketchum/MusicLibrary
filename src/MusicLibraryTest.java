@@ -6,7 +6,7 @@ import org.junit.Test;
 
 public class MusicLibraryTest {
     @Test
-    void testAddSong() {
+    public void testAddSong() {
     	MusicLibrary library = new MusicLibrary();
     	Song song1 = new Song("Bohemian Rhapsody", "A Night at the Opera", "Queen");
         Song song2 = new Song("Imagine", "Imagine", "John Lennon");
@@ -20,7 +20,7 @@ public class MusicLibraryTest {
     }
 
     @Test
-    void testAddAlbum() {
+    public void testAddAlbum() {
     	MusicLibrary library = new MusicLibrary();
     	Album album1 = new Album("A Night at the Opera", "Queen");
         Album album2 = new Album("Imagine", "John Lennon");
@@ -34,7 +34,7 @@ public class MusicLibraryTest {
     }
 
     @Test
-    void testAddPlaylist() {
+    public void testAddPlaylist() {
     	MusicLibrary library = new MusicLibrary();
     	Playlist playlist1 = new Playlist("Rock Classics");
         Playlist playlist2 = new Playlist("Chill Vibes");
@@ -48,17 +48,17 @@ public class MusicLibraryTest {
     }
 
     @Test
-    void testSearchSongByTitle() {
+    public void testSearchSongByTitle() {
     	MusicLibrary library = new MusicLibrary();
         Song song1 = new Song("Bohemian Rhapsody", "A Night at the Opera", "Queen");
-
+        
         library.addSong(song1);
         library.searchSongByTitle("Bohemian Rhapsody");
         library.searchSongByTitle("Nonexistent Song");
     }
 
     @Test
-    void testSearchAlbumByTitle() {
+    public void testSearchAlbumByTitle() {
     	MusicLibrary library = new MusicLibrary();
     	Album album1 = new Album("A Night at the Opera", "Queen");
 
@@ -69,7 +69,7 @@ public class MusicLibraryTest {
     }
 
     @Test
-    void testSearchSongByArtist() {
+    public void testSearchSongByArtist() {
     	MusicLibrary library = new MusicLibrary();
     	Song song1 = new Song("Oh My Love", "Imagine", "John Lennon");
         Song song2 = new Song("Imagine", "Imagine", "John Lennon");
@@ -82,7 +82,7 @@ public class MusicLibraryTest {
     }
 
     @Test
-    void testSearchAlbumByArtist() {
+    public void testSearchAlbumByArtist() {
     	MusicLibrary library = new MusicLibrary();
     	Album album1 = new Album("Double Fantasy", "John Lennon");
         Album album2 = new Album("Imagine", "John Lennon");
@@ -95,7 +95,7 @@ public class MusicLibraryTest {
     }
 
     @Test
-    void testGetPlaylist() {
+    public void testGetPlaylist() {
     	MusicLibrary library = new MusicLibrary();
         Playlist playlist1 = new Playlist("Rock Classics");
 
@@ -108,7 +108,7 @@ public class MusicLibraryTest {
     }
 
     @Test
-    void testGetPlaylistInfo() {
+    public void testGetPlaylistInfo() {
     	MusicLibrary library = new MusicLibrary();
         Playlist playlist1 = new Playlist("Rock Classics");
     	
