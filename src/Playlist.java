@@ -14,6 +14,10 @@ public class Playlist {
     	songs.add(song);
     }
     
+    public void removeFirstSong() {
+    	songs.remove(0);
+    }
+    
     public boolean removeSong(String tittle) {
     	Song remove = null;
     	for(Song s : songs) {
@@ -39,10 +43,11 @@ public class Playlist {
     }
  
     public void printItem() {
-        System.out.println("Playlist: " + name);
+        System.out.println("Playlist: " + name+"\n");
         for (Song song : songs) {
             song.printItem();
         }
+        System.out.println();
     }
 }
 

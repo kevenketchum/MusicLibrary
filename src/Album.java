@@ -17,13 +17,24 @@ public class Album extends LibraryItem {
     public String getArtist() {
         return artist;
     }
+    
+    
+    public String libraryStatus() {
+    	if(this.inLibrary) {
+    		return " It is currently on the library";
+    	}
+    	else {
+    		return " not currently on library";
+    	}
+    }
 
     @Override
     public void printItem() {
-        System.out.println("Album: " + name + " by " + artist);
+        System.out.println("Album: " + name + " by " + artist+ libraryStatus()+"\n");
         for (Song song : songs) {
             System.out.println("- " + song.getName());
         }
+        System.out.println();
     }
 }
 

@@ -32,6 +32,7 @@ public class MusicStore {
 
         String albumTitle = albumDetails[0];
         String artist = albumDetails[1];
+        String genre = albumDetails[2];
         /*
         String genre = albumDetails[2];
         int year;
@@ -52,7 +53,7 @@ public class MusicStore {
         for (int i = 1; i < music.size(); i++) {
             String songTitle = music.get(i).trim();
             if (!songTitle.isEmpty()) {
-                Song song = new Song(songTitle, albumTitle, artist);
+                Song song = new Song(songTitle, albumTitle, artist, genre);
                 album.addSong(song);
             }
         }
@@ -67,6 +68,36 @@ public class MusicStore {
     
     public ArrayList<Album> getAlbums() {
     	return new ArrayList<Album>(albums);
+    }
+    
+    public Song getSongByTitle(String title) {
+        for (Album album : albums) {
+            for (Song song : album.getSongs()) {
+                if (song.getName().equalsIgnoreCase(title)) {
+                	return song;
+                }
+            }
+        }
+        return null;
+    }
+    
+    public void searchSongByGenre(String genre) {
+    	ArrayList<Song> genreSongs = new ArrayList<>();
+    	for(Album album : albums) {
+    		for(Song song : album.getSongs()) {
+    			if(song.getGenre().equalsIgnoreCase(genre)) {
+    				genreSongs.add(song);
+    			}
+    		}
+    	}
+    	if(genreSongs.size() == 0) {
+    		System.out.println("No songs with the genre "+genre+".\n");
+    	}
+    	else {
+    		for(Song song : genreSongs) {
+    			song.printItem();
+    		}
+    	}
     }
 
     public void searchSongByTitle(String title) {

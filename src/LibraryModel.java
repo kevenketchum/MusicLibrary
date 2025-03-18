@@ -1,3 +1,5 @@
+import java.util.Collections;
+
 /*
  *Class LibraryModel, Parameters: musicStore, musicLibrary
  *This class represents the model and functionality of adding songs from the musicStore to
@@ -29,6 +31,16 @@ public class LibraryModel {
         }
         return false;
     }
+    public boolean removeSong(String title) {
+    	boolean found = false;
+    	for(Song song : musicLibrary.getMusicLibrary()) {
+    		if(song.getName().equals(title)) {
+    			musicLibrary.removeSong(song);
+    			found = true;
+    		}
+    	}
+    	return found;
+    }
 
     public boolean addAlbum(String title) {
         for (Album album : musicStore.getAlbums()) {
@@ -45,6 +57,27 @@ public class LibraryModel {
             }
         }
         return false;
+    }
+    
+    public boolean removeAlbum(String title) {
+    	boolean found = false;
+    	for(Album album : musicLibrary.getAlbumList()) {
+    		if(album.getName().equals(title)) {
+    			musicLibrary.removeAlbum(album);
+    			found = true;
+    		}
+    	}
+    	return found;
+    }
+    
+    public void searchAlbumBySong(String songName) {
+    	Song search = musicStore.getSongByTitle(songName);
+    	if(search == null) {
+    		System.out.println("Song non-existent on music store\n");
+    	}
+    	else {
+    		musicStore.searchAlbumByTitle(search.getAlbum());
+    	}
     }
     
     public void addPlaylist(String name) {
@@ -71,7 +104,9 @@ public class LibraryModel {
     
     //Add remove Songs from Playlist
     //kinda shitty remove/add from playlist, might change later
-    public boolean addSongToPlaylist(String playlistName, String songName) {
+
+
+public boolean addSongToPlaylist(String playlistName, String songName) {
     	Playlist play = musicLibrary.getPlaylist(playlistName);
     	for (Album album : musicStore.getAlbums()) {
     		for (Song song : album.getSongs()) {
@@ -154,6 +189,42 @@ public class LibraryModel {
     			}
     		}
     	}
+    }
+    
+    public void playSongfromLibrary(String name) {
+    	boolean found = false;
+    	for(Song song : musicLibrary.getMusicLibrary()) {
+    		if(song.getName().equalsIgnoreCase(name)) {
+    			song.playSong();
+    			musicLibrary.updateRecent(song);
+    			musicLibrary.updateFrequent();
+    			found = true;
+    		}
+    	}
+    	if(!found) {
+    		System.out.println("No song with name "+name+" was found\n");
+    	}
+    }
+    
+    public void shuffleSongs() {
+    	Collections.shuffle(musicLibrary.getMusicLibrary());
+    	for(Song song : musicLibrary.getMusicLibrary()) {
+    		song.printItem();
+    	}
+    }
+    
+    public void shufflePlaylist(String name) {
+    	boolean found = false;
+    	for(Playlist playlist : musicLibrary.getAllPlaylists()) {
+    		if(playlist.getName().equals(name)) {
+    			Collections.shuffle(playlist.getSongs());
+    			found = true;
+    			playlist.printItem();
+    		}
+    	}
+        if(!found) {
+        	System.out.println("playlist with name "+name+" was not found.\n");
+        }
     }
 }
 
