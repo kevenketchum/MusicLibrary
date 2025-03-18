@@ -36,12 +36,22 @@ public class LibraryModel {
     	for(Song song : musicLibrary.getMusicLibrary()) {
     		if(song.getName().equals(title)) {
     			musicLibrary.removeSong(song);
+    			addAlbum(song);
     			found = true;
     		}
     	}
     	return found;
     }
-
+    
+    private void addAlbum(Song song) {
+    	String title = song.getAlbum();
+        for (Album album : musicStore.getAlbums()) {
+            if (album.getName().equalsIgnoreCase(title)) {
+                album.addToLibrary();
+                musicLibrary.addAlbum(album);
+            }
+        } 	
+    }
     public boolean addAlbum(String title) {
         for (Album album : musicStore.getAlbums()) {
             if (album.getName().equalsIgnoreCase(title)) {
