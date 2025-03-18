@@ -31,6 +31,7 @@ public abstract class LibraryItem {
         return inLibrary;
     }
 
+
     public void addToLibrary() {
         this.inLibrary = true;
     }

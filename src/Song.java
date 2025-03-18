@@ -14,19 +14,26 @@ public class Song extends LibraryItem {
     private final String author;
     private int rating;
     private boolean favorite;
+    private int frequency;
+    private final String genre;
     
     //Song Object Initializer
-    public Song(String name, String album, String author) {
+    public Song(String name, String album, String author, String genre) {
         super(name);
         this.album = album;
         this.author = author;
         this.rating = 0;
         this.favorite = false;
+        this.frequency = 0;
+        this.genre = genre;
     }
 
     //Getters/Setters
 
-
+    public String getGenre() {
+    	return genre;
+    }
+    
     public String getAlbum() {
         return album;
     }
@@ -41,6 +48,15 @@ public class Song extends LibraryItem {
 
     public boolean isFavorite() {
         return favorite;
+    }
+    
+    public int getFrequency() {
+    	return frequency;
+    }
+    
+    public void playSong() {
+    	frequency += 1;
+    	System.out.println("Currently playing: "+this.name+"\n");
     }
 
 
