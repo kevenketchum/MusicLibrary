@@ -70,7 +70,6 @@ public class LibraryModel {
 
     
     //Add remove Songs from Playlist
-    //kinda shitty remove/add from playlist, might change later
     public boolean addSongToPlaylist(String playlistName, String songName) {
     	Playlist play = musicLibrary.getPlaylist(playlistName);
     	for (Album album : musicStore.getAlbums()) {
