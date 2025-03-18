@@ -74,4 +74,14 @@ public class PlaylistTest {
 	        List<Song> songs = playlist.getSongs();
 	        assertEquals(2, songs.size());
 	    }
+	    
+	    @Test
+	    public void testPrintItem() {
+	    	Playlist playlist = new Playlist("My Favorites");
+	        Song song1 = new Song("Bohemian Rhapsody", "A Night at the Opera", "Queen");
+	        Song song2 = new Song("Imagine", "Imagine", "John Lennon");
+	        playlist.addSong(song1);
+	        playlist.addSong(song2);
+	        playlist.printItem();
+	    }
 }

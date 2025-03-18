@@ -77,8 +77,8 @@ public class LibraryModel {
     		for (Song song : album.getSongs()) {
     			if (song.getName().equalsIgnoreCase(songName)) {
     				play.addSong(song);
+    				return true;
     	                }   
-    		return true;
     		}
     	}
     	return false;

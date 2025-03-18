@@ -41,7 +41,7 @@ public class Playlist {
     public void printItem() {
         System.out.println("Playlist: " + name);
         for (Song song : songs) {
-            System.out.println("- " + song.getName());
+            song.printItem();
         }
     }
 }
