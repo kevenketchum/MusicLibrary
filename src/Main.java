@@ -6,6 +6,39 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        UserManager userManager = new UserManager();
+        
+        // User authentication
+        String username = null;
+        boolean authenticated = false;
+        
+        while (!authenticated) {
+            System.out.println("1. Register\n2. Login\nChoose an option: ");
+            String option = scanner.nextLine().trim();
+            
+            System.out.print("Enter username: ");
+            username = scanner.nextLine().trim();
+            System.out.print("Enter password: ");
+            String password = scanner.nextLine().trim();
+            
+            if (option.equals("1")) {
+                if (userManager.registerUser(username, password)) {
+                    System.out.println("Registration successful. Please log in.");
+                }
+            } else if (option.equals("2")) {
+                if (userManager.loginUser(username, password)) {
+                    System.out.println("Login successful. Welcome, " + username + "!");
+                    authenticated = true;
+                } else {
+                    System.out.println("Invalid username or password. Try again.");
+                }
+            } else {
+                System.out.println("Invalid option. Try again.");
+            }
+        }
+        
+        // Load user-specific library data
+        LibraryDataManager libraryDataManager = new LibraryDataManager(username);
         
         // Prompt user for album directory
         System.out.print("Enter the path to the albums directory: ");
@@ -14,6 +47,9 @@ public class Main {
         List<String> albumFiles = getAlbumFiles(albumDirectory);
         MusicStore musicStore = new MusicStore(albumFiles);
         LibraryModel libraryModel = new LibraryModel(musicStore);
+        
+        // Load the user's saved library
+        libraryModel.setMusicLibrary(libraryDataManager.loadLibrary());
 
         boolean running = true;
 
@@ -61,12 +97,12 @@ public class Main {
                 case "5" -> {
                     System.out.print("Enter the song title to add: ");
                     String songTitle = scanner.nextLine().trim();
-                    System.out.println(libraryModel.addSong(songTitle) ? "Song added to library." : "Song not found."); // return song addeed to library if true song not found otherwise
+                    System.out.println(libraryModel.addSong(songTitle) ? "Song added to library." : "Song not found.");
                 }
                 case "6" -> {
                     System.out.print("Enter the album title to add: ");
                     String albumTitle = scanner.nextLine().trim();
-                    System.out.println(libraryModel.addAlbum(albumTitle) ? "Album added to library." : "Album not found."); // return album added to library if true album not found otherwise
+                    System.out.println(libraryModel.addAlbum(albumTitle) ? "Album added to library." : "Album not found.");
                 }
                 case "7" -> {
                     System.out.print("Enter the name of the new playlist: ");
@@ -74,75 +110,16 @@ public class Main {
                     libraryModel.addPlaylist(playlistName);
                     System.out.println("Playlist '" + playlistName + "' created.");
                 }
-                case "8" -> {
-                    System.out.println("1. Add a Song");
-                    System.out.println("2. Remove a Song");
-                    String addOrRemove = scanner.nextLine().trim();
-                    if(addOrRemove.equals("1")) {
-                        System.out.print("Enter the playlist name: ");
-                        String playlistName = scanner.nextLine().trim();
-                        System.out.print("Enter the song title to add: ");
-                        String songTitle = scanner.nextLine().trim();
-                        System.out.println(libraryModel.addSongToPlaylist(playlistName, songTitle) ? "Song added to playlist." : "Playlist or song not found."); // return song added to playlist if true
-                    } else if(addOrRemove.equals("2")) {
-                        System.out.print("Enter the playlist name: ");
-                        String playlistName = scanner.nextLine().trim();
-                        System.out.print("Enter the song title to remove: ");
-                        String songTitle = scanner.nextLine().trim();
-                        libraryModel.removeSongFromPlaylist(playlistName, songTitle);
-                    }
-                }
-                case "9" -> {
-                    System.out.println("1. Rate a Song");
-                    System.out.println("2. Set song as favorite");
-                    String rateOrFav = scanner.nextLine().trim();
-                    if(rateOrFav.equals("1")) {
-                        System.out.print("Enter the song title to rate: ");
-                        String songTitle = scanner.nextLine().trim();
-                        System.out.print("Enter a rating (1-5): ");
-                        int rating = Integer.parseInt(scanner.nextLine().trim());
-                        System.out.println(libraryModel.setRating(songTitle, rating) ? "Rating updated." : "Song not found or invalid rating.");
-                    } else if(rateOrFav.equals("2")) {
-                        System.out.print("Enter the song title to add to favorites: ");
-                        String songTitle = scanner.nextLine().trim();
-                        System.out.println(libraryModel.setFavorite(songTitle) ? "Song added to favorites." : "Song not found or already a favorite.");
-                    }
-                }
-                case "10" -> {
-                    System.out.println("Search your library by:");
-                    System.out.println("1. Song title");
-                    System.out.println("2. Album title");
-                    System.out.println("3. Playlist name");
-                    System.out.print("Enter your choice: ");
-                    String searchChoice = scanner.nextLine().trim();
-
-                    if (searchChoice.equals("1")) {
-                        System.out.print("Enter song title: ");
-                        String songTitle = scanner.nextLine().trim();
-                        libraryModel.librarySearchSongByTitle(songTitle);
-                    } else if (searchChoice.equals("2")) {
-                        System.out.print("Enter album title: ");
-                        String albumTitle = scanner.nextLine().trim();
-                        libraryModel.librarySearchAlbumByTitle(albumTitle);
-                    } else if (searchChoice.equals("3")) {
-                        System.out.print("Enter Playlist name: ");
-                        String playlistName = scanner.nextLine().trim();
-                        libraryModel.getPlaylistInfo(playlistName);
-                    } else {
-                        System.out.println("Invalid choice.");
-                    }
-                }
-                case "11" -> {
-                    System.out.println("\n--- Your Library ---");
-                    System.out.println(libraryModel.getAllLibraryItems());
-                }
                 case "12" -> {
                     running = false;
                     System.out.println("Goodbye!");
+                    // Save user library data before exiting
+                    libraryDataManager.saveLibrary(libraryModel.getMusicLibrary());
                 }
                 default -> System.out.println("Invalid input. Please try again.");
             }
         }
+        
         scanner.close();
     }
 
