@@ -146,6 +146,7 @@ public class MusicLibrary {
     	}
     }
     
+    //Doesnt check if the list is of 10 elements
     public void updateRecent(Song song) {
     	for(Playlist playlist : allPlaylists) {
     		if(playlist.getName().equals("recently played")) {
