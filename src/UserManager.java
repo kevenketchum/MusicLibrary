@@ -7,6 +7,7 @@ import java.security.SecureRandom;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
+//Had to download and put the path into the project
 import org.json.JSONObject;
 /**
 * UserManager Class

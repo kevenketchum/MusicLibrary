@@ -34,6 +34,14 @@ public class Playlist {
     	}
     }
     
+    
+    //Figure out a better way of changin the value of the playlist
+    public void replacePlaylist(ArrayList<Song> replacement) {
+    	for(int i = 0; i < songs.size(); i++) {
+    		songs.set(i, replacement.get(i));
+    	}
+    }
+    
     public String getName() {
     	return this.name;
     }
