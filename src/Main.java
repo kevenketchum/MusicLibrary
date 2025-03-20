@@ -74,49 +74,59 @@ public class Main {
             String choice = scanner.nextLine().trim();
 
             switch (choice) {
-                case "1" -> {
+                case "1":
                     System.out.print("Enter song title: ");
                     String songTitle = scanner.nextLine().trim();
                     musicStore.searchSongByTitle(songTitle);
-                }
-                case "2" -> {
+                    break;
+
+                case "2":
                     System.out.print("Enter album title: ");
                     String albumTitle = scanner.nextLine().trim();
                     musicStore.searchAlbumByTitle(albumTitle);
-                }
-                case "3" -> {
+                    break;
+
+                case "3":
                     System.out.print("Enter artist name: ");
                     String artist = scanner.nextLine().trim();
                     musicStore.searchSongByArtist(artist);
-                }
-                case "4" -> {
+                    break;
+
+                case "4":
                     System.out.print("Enter artist name: ");
-                    String artist = scanner.nextLine().trim();
+                    artist = scanner.nextLine().trim();
                     musicStore.searchAlbumByArtist(artist);
-                }
-                case "5" -> {
+                    break;
+
+                case "5":
                     System.out.print("Enter the song title to add: ");
-                    String songTitle = scanner.nextLine().trim();
+                    songTitle = scanner.nextLine().trim();
                     System.out.println(libraryModel.addSong(songTitle) ? "Song added to library." : "Song not found.");
-                }
-                case "6" -> {
+                    break;
+
+                case "6":
                     System.out.print("Enter the album title to add: ");
-                    String albumTitle = scanner.nextLine().trim();
+                    albumTitle = scanner.nextLine().trim();
                     System.out.println(libraryModel.addAlbum(albumTitle) ? "Album added to library." : "Album not found.");
-                }
-                case "7" -> {
+                    break;
+
+                case "7":
                     System.out.print("Enter the name of the new playlist: ");
                     String playlistName = scanner.nextLine().trim();
                     libraryModel.addPlaylist(playlistName);
                     System.out.println("Playlist '" + playlistName + "' created.");
-                }
-                case "12" -> {
+                    break;
+
+                case "12":
                     running = false;
                     System.out.println("Goodbye!");
                     // Save user library data before exiting
                     libraryDataManager.saveLibrary(libraryModel.getMusicLibrary());
-                }
-                default -> System.out.println("Invalid input. Please try again.");
+                    break;
+
+                default:
+                    System.out.println("Invalid input. Please try again.");
+                    break;
             }
         }
         
