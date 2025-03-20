@@ -117,6 +117,24 @@ public class Main {
                     System.out.println("Playlist '" + playlistName + "' created.");
                     break;
 
+
+                case "8":
+                    System.out.println("Feature not implemented yet.");
+                    break;
+
+                case "9":
+                    System.out.println("Feature not implemented yet.");
+                    break;
+
+                case "10":
+                    System.out.println("Feature not implemented yet.");
+                    break;
+
+                case "11":
+                    System.out.println("Feature not implemented yet.");
+                    break;
+                    
+
                 case "12":
                     running = false;
                     System.out.println("Goodbye!");
