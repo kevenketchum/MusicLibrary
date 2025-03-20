@@ -1,6 +1,7 @@
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.PriorityQueue;
 
@@ -15,8 +16,12 @@ public class MusicLibrary {
         this.allPlaylists = new ArrayList<>();
         Playlist recentPlayed = new Playlist("recently played");
         Playlist frequentPlayed = new Playlist("frequently played");
+        Playlist favorites = new Playlist("favorites");
+        Playlist topRated = new Playlist("top rated");
         allPlaylists.add(recentPlayed);
         allPlaylists.add(frequentPlayed);
+        allPlaylists.add(favorites);
+        allPlaylists.add(topRated);
     }
 
     public List<Song> getMusicLibrary() {
@@ -146,40 +151,107 @@ public class MusicLibrary {
     	}
     }
     
-    //Doesnt check if the list is of 10 elements
-    public void updateRecent(Song song) {
-    	for(Playlist playlist : allPlaylists) {
-    		if(playlist.getName().equals("recently played")) {
-    			playlist.removeFirstSong();
-    			playlist.addSong(song);
+    public void updateGenre() {
+    	HashMap<String, Integer> genres = new HashMap<String, Integer>();
+    	for(Song song : musicLibrary) {
+    		if(!genres.containsKey(song.getGenre())) {
+    			genres.put(song.getGenre(), 1);
+    		}
+    		else {
+    			genres.replace(song.getGenre(), genres.get(song.getGenre() + 1));
     		}
     	}
     }
     
-    public void updateFrequent() {
-    	
+    
+    //hAVENT FINISHED FUNCTION gotta check if it works and modify some things so it actually wokrs in our model
+    private void getTopGenre(HashMap genres) {
+        // Min-heap to store the top 10 genres based on song count
+        PriorityQueue<HashMap.Entry<String, Integer>> minHeap = new PriorityQueue<>(10, Comparator.comparingInt(HashMap.Entry -> HashMap.getValue()));
+
+        // Iterate through the HashMap entries
+        for (Map.Entry<String, Integer> entry : genres.entrySet()) {
+            minHeap.add(entry);
+
+            // Keep the heap size to 10 by removing the smallest element if it exceeds size 10
+            if (minHeap.size() > 10) {
+                minHeap.poll(); // Remove the smallest element
+            }
+        }
+
+        // Build the result list (in descending order of frequency)
+        List<String> result = new ArrayList<>();
+        while (!minHeap.isEmpty()) {
+            result.add(0, minHeap.poll().getKey()); // Add to the front to reverse order
+        }
+
+        return result;
     }
-    /*
-    private ArrayList<Song> getTopFrequent(){
-    	if(musicLibrary.size() <= 10) {
-        	ArrayList<Song> top = musicLibrary;
-    		return sortByPlays(top);
-    	}
-    	int min = Integer.MIN_VALUE;
-    	int max = Integer.MAX_VALUE;
-    	ArrayList<Song> top = new ArrayList<Song>();
-    	for(Song song : musicLibrary) {
-    		if(song.getFrequency() > min) {
-    			top.add(song);
-    			if(max < min) {
-    				max = min;
-    			}
+    
+    public void updateFavorites() {
+    	for(Playlist playlist : allPlaylists) {
+    		if(playlist.getName().equalsIgnoreCase("favorites")) {
+    			playlist.replacePlaylist(getFavorites());
+    			break;
     		}
     	}
-    	
+    }
+    
+    private ArrayList<Song> getFavorites(){
+    	ArrayList<Song> favorites = new ArrayList<>();
+    	for(Song song : musicLibrary) {
+    		if(song.isFavorite()) {
+    			favorites.add(song);
+    		}
+    	}
+    	return favorites;
+    }
+    
+    public void updateTop() {
+    	for(Playlist playlist : allPlaylists) {
+    		if(playlist.getName().equalsIgnoreCase("top rated")) {
+    			playlist.replacePlaylist(getTop());
+    			break;
+    		}
+    	}
+    }
+    
+    private ArrayList<Song> getTop() {
+    	ArrayList<Song> top = new ArrayList<>();
+    	for(Song song : musicLibrary) {
+    		if(song.getRating() == 4 || song.getRating() == 5) {
+    			top.add(song);
+    		}
+    	}
     	return top;
     }
-    */
+    
+    //Doesnt check if the list is of 10 elements
+    public void updateRecent(Song song) {
+    	for(Playlist playlist : allPlaylists) {
+    		if(playlist.getName().equalsIgnoreCase("recently played")) {
+    			if(playlist.getSongs().size() < 10) {
+    				playlist.addSong(song);
+        			break;
+    			}
+    			playlist.removeFirstSong();
+    			playlist.addSong(song);
+    			break;
+    		}
+    	}
+    }
+    
+    //Further checking if its corrent and valid
+    
+    public void updateFrequent() {
+    	for(Playlist playlist : allPlaylists) {
+    		if(playlist.getName().equalsIgnoreCase("frequenlt played")) {
+    			playlist.replacePlaylist(getTopFrequent());
+    			break;
+    		}
+    	}
+    }
+    
     
     private ArrayList<Song> getTopFrequent() {
         if (musicLibrary.size() <= 10) {
@@ -190,7 +262,7 @@ public class MusicLibrary {
         // Min-heap to keep the top 10 most frequent songs
         PriorityQueue<Song> minHeap = new PriorityQueue<>(10, Comparator.comparingInt(Song -> Song.getFrequency()));
 
-        for (Song song : musicLibrary) {
+        for (Song song : musicLibrary) {	
             if (minHeap.size() < 10) {
                 minHeap.offer(song); // Add to heap if we haven't reached size 10
             }

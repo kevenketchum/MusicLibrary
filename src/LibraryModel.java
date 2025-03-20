@@ -163,30 +163,29 @@ public class LibraryModel {
     
     public boolean setRating(String songName, int rating) {
     	boolean found = false;
-    	for(Album album : musicStore.getAlbums()) {
-    		for(Song song : album.getSongs()) {
-    			if(song.getName().equalsIgnoreCase(songName)) {
-    				song.setRating(rating);
-    				found = true;
-    			}
-    		}
+    	for(Song song : musicLibrary.getMusicLibrary()) {
+    		if(song.getName().equalsIgnoreCase(songName)) {
+				song.setRating(rating);
+				musicLibrary.updateFavorites();
+				musicLibrary.updateTop();
+				found = true;
+			}
     	}
     	return found;
     }
     
     public boolean setFavorite(String songName) {
-    	for(Album album : musicStore.getAlbums()) {
-    		for(Song song : album.getSongs()) {
-    			if(song.getName().equalsIgnoreCase(songName)) {
-    				if(song.isFavorite()) {
-    					return false;
-    				}
-    				else {
-    					song.setFavorite();
-        				return true;
-    				}
-    			}
-    		}
+    	for(Song song : musicLibrary.getMusicLibrary()) {
+    		if(song.getName().equalsIgnoreCase(songName)) {
+				if(song.isFavorite()) {
+					return false;
+				}
+				else {
+					song.setFavorite();
+					musicLibrary.updateFavorites();
+    				return true;
+				}
+			}
     	}
     	return false;
     }
