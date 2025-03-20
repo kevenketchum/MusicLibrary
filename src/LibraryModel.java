@@ -18,6 +18,10 @@ public class LibraryModel {
         this.musicLibrary = new MusicLibrary();
     }
     
+    public MusicLibrary getMusicLibrary() {
+    	return this.musicLibrary;
+    }
+    
     //Adds song from the musicStore to the musicLibrary (User's)
     public boolean addSong(String title) {
         for (Album album : musicStore.getAlbums()) {
