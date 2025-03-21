@@ -126,9 +126,26 @@ public class Main {
                         break;
 
                     case "7":
-                        System.out.print("Enter the song title to play: ");
-                        String playTitle = scanner.nextLine().trim();
-                        libraryModel.playSongfromLibrary(playTitle);
+                        System.out.println("1. Play specific song\n2. Shuffle and play library\n3. Shuffle and play playlist");
+                        String playChoice = scanner.nextLine().trim();
+                        switch (playChoice) {
+                            case "1":
+                                System.out.print("Enter the song title to play: ");
+                                String playTitle = scanner.nextLine().trim();
+                                libraryModel.playSongfromLibrary(playTitle);
+                                break;
+                            case "2":
+                                libraryModel.shuffleSongs();
+                                break;
+                            case "3":
+                                System.out.print("Enter playlist name to shuffle and play: ");
+                                String plShuffle = scanner.nextLine().trim();
+                                libraryModel.shufflePlaylist(plShuffle);
+                                break;
+                            default:
+                                System.out.println("Invalid option.");
+                                break;
+                        }
                         break;
 
                     case "8":
