@@ -13,7 +13,7 @@ public class Main {
         boolean authenticated = false;
 
         while (!authenticated) {
-            System.out.println("1. Register\n2. Login\nChoose an option: ");
+            System.out.println("1. Register\n2. Login\n3. quit\nChoose an option: ");
             String option = scanner.nextLine().trim();
 
             System.out.print("Enter username: ");
@@ -32,7 +32,12 @@ public class Main {
                 } else {
                     System.out.println("Invalid username or password. Try again.");
                 }
-            } else {
+            } 
+            else if(option.equals("3")) {
+            	System.out.println("Good Bye!.\n");
+            	System.exit(0);
+            }
+            else {
                 System.out.println("Invalid option. Try again.");
             }
         }
