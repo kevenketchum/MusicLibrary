@@ -66,7 +66,7 @@ public class Main {
             System.out.println("2. Search for an album by title");
             System.out.println("3. Search for a song by artist");
             System.out.println("4. Search for an album by artist");
-            System.out.println("5. Add a song to your library");
+            System.out.println("5. Add or Remove a song from your library");
             System.out.println("6. Add an album to your library");
             System.out.println("7. Play a song from your library");
             System.out.println("8. Create a playlist");
@@ -106,9 +106,17 @@ public class Main {
                         break;
 
                     case "5":
-                        System.out.print("Enter the song title to add: ");
+                        System.out.print("Add or Remove a song? (a/r): ");
+                        String actionLib = scanner.nextLine().trim();
+                        System.out.print("Enter the song title: ");
                         songTitle = scanner.nextLine().trim();
-                        System.out.println(libraryModel.addSong(songTitle) ? "Song added to library." : "Song not found.");
+                        if (actionLib.equalsIgnoreCase("a")) {
+                            System.out.println(libraryModel.addSong(songTitle) ? "Song added to library." : "Song not found.");
+                        } else if (actionLib.equalsIgnoreCase("r")) {
+                            System.out.println(libraryModel.removeSong(songTitle) ? "Song removed from library." : "Song not found.");
+                        } else {
+                            System.out.println("Invalid action.");
+                        }
                         break;
 
                     case "6":
