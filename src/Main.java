@@ -165,27 +165,13 @@ public class Main {
                             libraryModel.librarySearchAlbumByTitle(scanner.nextLine().trim());
                             break;
                         default:
-                            System.out.println("Invalid option.\n");
+                            System.out.println("Invalid option.");
                     }
                     break;
 
                 case "11":
-                	System.out.println("View Library by: 1)All elements  2)Sorted items");
-                	String answer = scanner.nextLine().trim();
-                	switch(answer) {
-                	case "all elements":
-                		System.out.println(libraryModel.getAllLibraryItems());
-                        break;
-                	case "sorted items":
-                		System.out.println("Sort songs by: 1)Title  2)Author  3)Rating");
-                		String sorted = scanner.nextLine().trim();
-                		libraryModel.sortSongs(sorted);
-                		break;
-                	default:
-                		System.out.println("Invalid options.\n");
-                	}
-                
-                    
+                    System.out.println(libraryModel.getAllLibraryItems());
+                    break;
 
                 case "12":
                     running = false;
