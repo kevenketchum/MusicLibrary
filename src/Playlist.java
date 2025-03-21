@@ -35,7 +35,6 @@ public class Playlist {
     }
     
     
-    //Figure out a better way of changin the value of the playlist
     public void replacePlaylist(ArrayList<Song> replacement) {
     	this.songs = replacement;
     }

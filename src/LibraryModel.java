@@ -1,3 +1,4 @@
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -43,6 +44,7 @@ public class LibraryModel {
                     song.addToLibrary();
                     musicLibrary.addSong(song);
                     updatePlaylists();
+                    addAlbumAfterSong(song.getAlbum());
                     return true;
                 }
             }
@@ -266,6 +268,44 @@ private void playSong(Song play) {
         }
     }
     
+    public void sortSongs(String choice) {
+    	if(choice.equalsIgnoreCase("title")) {
+    		sortSongTittle();
+    	}
+    	else if(choice.equalsIgnoreCase("artist")) {
+    		sortSongArtist();
+    	}
+    	else if(choice.equalsIgnoreCase("rating")) {
+    		sortSongRating();
+    	}
+    	else {
+    		System.out.println("Invalid option: "+choice+".\n");
+    	}
+    }
+    
+    private void sortSongTittle() {
+    	List<Song> library = musicLibrary.getMusicLibrary();
+    	Collections.sort(library, (s1, s2) -> s1.getTitle().compareTo(s2.getTitle()));
+    	for(Song song : library) {
+    		song.printItem();
+    	}
+    }
+    
+    private void sortSongArtist() {
+    	List<Song> library = musicLibrary.getMusicLibrary();
+    	Collections.sort(library, (s1, s2) -> s1.getAuthor().compareTo(s2.getAuthor()));
+    	for(Song song : library) {
+    		song.printItem();
+    	}
+    }
+    
+    private void sortSongRating() {
+    	List<Song> library = musicLibrary.getMusicLibrary();
+    	Collections.sort(library, (s1, s2) -> s1.getRating() - s2.getRating());
+    	for(Song song : library) {
+    		song.printItem();
+    	}
+    }
     private void updatePlaylists() {
     	musicLibrary.updateGenre();
     	musicLibrary.updateTop();
