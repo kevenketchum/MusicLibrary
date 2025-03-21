@@ -19,6 +19,10 @@ public class LibraryModel {
         this.musicLibrary = new MusicLibrary();
     }
 
+    
+    //Adds song from the musicStore to the musicLibrary (User's)
+
+
     // 🛠️ FIXED: Added this missing method
     public void setMusicLibrary(List<Song> songs) {
         for (Song song : songs) {
@@ -38,6 +42,7 @@ public class LibraryModel {
                 if (song.getName().equalsIgnoreCase(title)) {
                     song.addToLibrary();
                     musicLibrary.addSong(song);
+                    updatePlaylists();
                     return true;
                 }
             }
@@ -50,15 +55,14 @@ public class LibraryModel {
         for (Song song : musicLibrary.getMusicLibrary()) {
             if (song.getName().equals(title)) {
                 musicLibrary.removeSong(song);
-                addAlbum(song);
+                song.removeFromLibrary();
                 found = true;
             }
         }
         return found;
     }
 
-    private void addAlbum(Song song) {
-        String title = song.getAlbum();
+    public void addAlbumAfterSong(String title) {
         for (Album album : musicStore.getAlbums()) {
             if (album.getName().equalsIgnoreCase(title)) {
                 album.addToLibrary();
@@ -78,6 +82,7 @@ public class LibraryModel {
                     s.addToLibrary();
                     musicLibrary.addSong(s);
                 }
+                updatePlaylists();
                 return true;
             }
         }
@@ -89,6 +94,7 @@ public class LibraryModel {
         for (Album album : musicLibrary.getAlbumList()) {
             if (album.getName().equals(title)) {
                 musicLibrary.removeAlbum(album);
+                album.removeFromLibrary();
                 found = true;
             }
         }
@@ -170,32 +176,32 @@ public class LibraryModel {
     }
 
     public boolean setRating(String songName, int rating) {
-        boolean found = false;
-        for (Album album : musicStore.getAlbums()) {
-            for (Song song : album.getSongs()) {
-                if (song.getName().equalsIgnoreCase(songName)) {
-                    song.setRating(rating);
-                    found = true;
-                }
-            }
-        }
-        return found;
+    	boolean found = false;
+    	for(Song song : musicLibrary.getMusicLibrary()) {
+    		if(song.getName().equalsIgnoreCase(songName)) {
+				song.setRating(rating);
+				musicLibrary.updateFavorites();
+				musicLibrary.updateTop();
+				found = true;
+			}
+    	}
+    	return found;
     }
-
+    
     public boolean setFavorite(String songName) {
-        for (Album album : musicStore.getAlbums()) {
-            for (Song song : album.getSongs()) {
-                if (song.getName().equalsIgnoreCase(songName)) {
-                    if (song.isFavorite()) {
-                        return false;
-                    } else {
-                        song.setFavorite();
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
+    	for(Song song : musicLibrary.getMusicLibrary()) {
+    		if(song.getName().equalsIgnoreCase(songName)) {
+				if(song.isFavorite()) {
+					return false;
+				}
+				else {
+					song.setFavorite();
+					musicLibrary.updateFavorites();
+    				return true;
+				}
+			}
+    	}
+    	return false;
     }
 
     public void getFavorites() {
@@ -222,11 +228,25 @@ public class LibraryModel {
             System.out.println("No song with name " + name + " was found\n");
         }
     }
+    
+private void playSong(Song play) {
+	play.playSong();
+	musicLibrary.updateRecent(play);
+    musicLibrary.updateFrequent();
+}
+    
+    private void playPlaylist(Playlist play) {
+    	System.out.println("Currently playing playlist: "+play.getName());
+    	for(Song song : play.getSongs()) {
+    		playSong(song);
+    	}
+    }
 
     public void shuffleSongs() {
-        Collections.shuffle(musicLibrary.getMusicLibrary());
-        for (Song song : musicLibrary.getMusicLibrary()) {
-            song.printItem();
+    	List<Song> shuffled = musicLibrary.getMusicLibrary();
+        Collections.shuffle(shuffled);
+        for (Song song : shuffled) {
+        	playSong(song);
         }
     }
 
@@ -234,13 +254,20 @@ public class LibraryModel {
         boolean found = false;
         for (Playlist playlist : musicLibrary.getAllPlaylists()) {
             if (playlist.getName().equals(name)) {
-                Collections.shuffle(playlist.getSongs());
+            	Playlist shuffled = playlist;
+                Collections.shuffle(shuffled.getSongs());
                 found = true;
-                playlist.printItem();
+                
+                playPlaylist(shuffled);
             }
         }
         if (!found) {
             System.out.println("Playlist with name " + name + " was not found.\n");
         }
+    }
+    
+    private void updatePlaylists() {
+    	musicLibrary.updateGenre();
+    	musicLibrary.updateTop();
     }
 }

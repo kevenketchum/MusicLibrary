@@ -79,43 +79,44 @@ public class Main {
                     String songTitle = scanner.nextLine().trim();
                     musicStore.searchSongByTitle(songTitle);
                     break;
-                    
+
                 case "2":
                     System.out.print("Enter album title: ");
                     String albumTitle = scanner.nextLine().trim();
                     musicStore.searchAlbumByTitle(albumTitle);
                     break;
-                    
+
                 case "3":
                     System.out.print("Enter artist name: ");
                     String artist = scanner.nextLine().trim();
                     musicStore.searchSongByArtist(artist);
                     break;
-                    
+
                 case "4":
                     System.out.print("Enter artist name: ");
                     artist = scanner.nextLine().trim();
                     musicStore.searchAlbumByArtist(artist);
                     break;
-                    
+
                 case "5":
                     System.out.print("Enter the song title to add: ");
                     songTitle = scanner.nextLine().trim();
                     System.out.println(libraryModel.addSong(songTitle) ? "Song added to library." : "Song not found.");
                     break;
-                    
+
                 case "6":
                     System.out.print("Enter the album title to add: ");
                     albumTitle = scanner.nextLine().trim();
                     System.out.println(libraryModel.addAlbum(albumTitle) ? "Album added to library." : "Album not found.");
                     break;
-                    
+
                 case "7":
                     System.out.print("Enter the name of the new playlist: ");
                     String playlistName = scanner.nextLine().trim();
                     libraryModel.addPlaylist(playlistName);
                     System.out.println("Playlist '" + playlistName + "' created.");
                     break;
+
 
                 case "8":
                     System.out.println("Feature not implemented yet.");
@@ -130,18 +131,19 @@ public class Main {
                     break;
 
                 case "11":
-                    System.out.println("Feature not implemented yet.");
+                    System.out.println(libraryModel.getAllLibraryItems());
                     break;
                     
+
                 case "12":
                     running = false;
                     System.out.println("Goodbye!");
                     // Save user library data before exiting
                     libraryDataManager.saveLibrary(libraryModel.getMusicLibrary());
                     break;
-                    
+
                 default:
-                    System.out.println("Invalid input. Please try again.");
+                    System.out.println(libraryModel.getAllLibraryItems());
                     break;
             }
         }

@@ -64,14 +64,20 @@ public class Song extends LibraryItem {
     public void setRating(int rate) {
         if (rate == 5) {
             setFavorite();
+            this.rating = rate;
         }
-        if (rate >= 1 && rate <= 5) {
+        if (rate >= 1 && rate < 5) {
+        	unFavorite();
             this.rating = rate;
         }
     }
 
     public void setFavorite() {
         this.favorite = true;
+    }
+    
+    public void unFavorite() {
+    	this.favorite = false;
     }
 
 
