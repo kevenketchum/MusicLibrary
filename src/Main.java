@@ -13,7 +13,7 @@ public class Main {
         boolean authenticated = false;
 
         while (!authenticated) {
-            System.out.println("1. Register\n2. Login\nChoose an option: ");
+            System.out.println("1. Register\n2. Login\n3. quit\nChoose an option: ");
             String option = scanner.nextLine().trim();
 
             System.out.print("Enter username: ");
@@ -32,7 +32,12 @@ public class Main {
                 } else {
                     System.out.println("Invalid username or password. Try again.");
                 }
-            } else {
+            } 
+            else if(option.equals("3")) {
+            	System.out.println("Good Bye!.\n");
+            	System.exit(0);
+            }
+            else {
                 System.out.println("Invalid option. Try again.");
             }
         }
@@ -168,11 +173,33 @@ public class Main {
                             System.out.println("Invalid option.");
                     }
                     break;
-
                 case "11":
-                    System.out.println(libraryModel.getAllLibraryItems());
-                    break;
-
+                	System.out.println("View Library by: 1)All elements  2)Sorted items");
+                	String answer = scanner.nextLine().trim();
+                	switch(answer) {
+                	case "1":
+                		System.out.println(libraryModel.getAllLibraryItems());
+                		break;
+                	case "2":
+                		System.out.println("Sort songs by: 1)Title  2)Author  3)Rating");
+                		String sorted = scanner.nextLine().trim();
+                		String way ="";
+                		switch(sorted) {
+                		case "1":
+                			way = "title";
+                		case "2":
+                			way = "author";
+                		case "3":
+                			way = "rating";
+                		}
+                	
+                		libraryModel.sortSongs(way);
+                		break;
+                	default:
+                		System.out.println("Invalid options.\n");
+                      break;
+                	}
+                	break;
                 case "12":
                     running = false;
                     System.out.println("Goodbye!");
