@@ -173,25 +173,32 @@ public class Main {
                             System.out.println("Invalid option.\n");
                     }
                     break;
-
                 case "11":
                 	System.out.println("View Library by: 1)All elements  2)Sorted items");
                 	String answer = scanner.nextLine().trim();
                 	switch(answer) {
-                	case "all elements":
+                	case "1":
                 		System.out.println(libraryModel.getAllLibraryItems());
-                        break;
-                	case "sorted items":
+                		break;
+                	case "2":
                 		System.out.println("Sort songs by: 1)Title  2)Author  3)Rating");
                 		String sorted = scanner.nextLine().trim();
-                		libraryModel.sortSongs(sorted);
+                		String way ="";
+                		switch(sorted) {
+                		case "1":
+                			way = "title";
+                		case "2":
+                			way = "author";
+                		case "3":
+                			way = "rating";
+                		}
+                	
+                		libraryModel.sortSongs(way);
                 		break;
                 	default:
                 		System.out.println("Invalid options.\n");
                 	}
-                
-                    
-
+                	break;
                 case "12":
                     running = false;
                     System.out.println("Goodbye!");
