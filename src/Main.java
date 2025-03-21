@@ -170,7 +170,7 @@ public class Main {
                             libraryModel.librarySearchAlbumByTitle(scanner.nextLine().trim());
                             break;
                         default:
-                            System.out.println("Invalid option.\n");
+                            System.out.println("Invalid option.");
                     }
                     break;
                 case "11":
@@ -197,6 +197,7 @@ public class Main {
                 		break;
                 	default:
                 		System.out.println("Invalid options.\n");
+                      break;
                 	}
                 	break;
                 case "12":
