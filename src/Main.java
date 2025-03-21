@@ -7,20 +7,20 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         UserManager userManager = new UserManager();
-        
+
         // User authentication
         String username = null;
         boolean authenticated = false;
-        
+
         while (!authenticated) {
             System.out.println("1. Register\n2. Login\nChoose an option: ");
             String option = scanner.nextLine().trim();
-            
+
             System.out.print("Enter username: ");
             username = scanner.nextLine().trim();
             System.out.print("Enter password: ");
             String password = scanner.nextLine().trim();
-            
+
             if (option.equals("1")) {
                 if (userManager.registerUser(username, password)) {
                     System.out.println("Registration successful. Please log in.");
@@ -36,18 +36,18 @@ public class Main {
                 System.out.println("Invalid option. Try again.");
             }
         }
-        
+
         // Load user-specific library data
         LibraryDataManager libraryDataManager = new LibraryDataManager(username);
-        
+
         // Prompt user for album directory
         System.out.print("Enter the path to the albums directory: ");
         String albumDirectory = scanner.nextLine().trim();
-        
+
         List<String> albumFiles = getAlbumFiles(albumDirectory);
         MusicStore musicStore = new MusicStore(albumFiles);
         LibraryModel libraryModel = new LibraryModel(musicStore);
-        
+
         // Load the user's saved library
         libraryModel.setMusicLibrary(libraryDataManager.loadLibrary());
 
@@ -117,37 +117,73 @@ public class Main {
                     System.out.println("Playlist '" + playlistName + "' created.");
                     break;
 
-
                 case "8":
-                    System.out.println("Feature not implemented yet.");
+                    System.out.print("Enter playlist name: ");
+                    String plName = scanner.nextLine().trim();
+                    System.out.print("Add or Remove a song? (a/r): ");
+                    String action = scanner.nextLine().trim();
+                    System.out.print("Enter song name: ");
+                    String songName = scanner.nextLine().trim();
+                    if (action.equalsIgnoreCase("a")) {
+                        boolean added = libraryModel.addSongToPlaylist(plName, songName);
+                        System.out.println(added ? "Song added to playlist." : "Failed to add song.");
+                    } else if (action.equalsIgnoreCase("r")) {
+                        libraryModel.removeSongFromPlaylist(plName, songName);
+                    }
                     break;
 
                 case "9":
-                    System.out.println("Feature not implemented yet.");
+                    System.out.print("Enter song title: ");
+                    String rateTitle = scanner.nextLine().trim();
+                    System.out.print("Enter rating (1-5): ");
+                    int rating = Integer.parseInt(scanner.nextLine().trim());
+                    boolean rated = libraryModel.setRating(rateTitle, rating);
+                    System.out.println(rated ? "Rating applied." : "Song not found.");
+
+                    System.out.print("Would you like to mark it as favorite? (y/n): ");
+                    String fav = scanner.nextLine().trim();
+                    if (fav.equalsIgnoreCase("y")) {
+                        boolean favResult = libraryModel.setFavorite(rateTitle);
+                        System.out.println(favResult ? "Marked as favorite." : "Already favorite or song not found.");
+                    }
                     break;
 
                 case "10":
-                    System.out.println("Feature not implemented yet.");
+                    System.out.println("Search Library by: 1) Title 2) Artist 3) Album");
+                    String searchOption = scanner.nextLine().trim();
+                    switch (searchOption) {
+                        case "1":
+                            System.out.print("Enter song title: ");
+                            libraryModel.librarySearchSongByTitle(scanner.nextLine().trim());
+                            break;
+                        case "2":
+                            System.out.print("Enter artist: ");
+                            libraryModel.librarySearchSongByArtist(scanner.nextLine().trim());
+                            break;
+                        case "3":
+                            System.out.print("Enter album: ");
+                            libraryModel.librarySearchAlbumByTitle(scanner.nextLine().trim());
+                            break;
+                        default:
+                            System.out.println("Invalid option.");
+                    }
                     break;
 
                 case "11":
                     System.out.println(libraryModel.getAllLibraryItems());
                     break;
-                    
 
                 case "12":
                     running = false;
                     System.out.println("Goodbye!");
-                    // Save user library data before exiting
                     libraryDataManager.saveLibrary(libraryModel.getMusicLibrary());
                     break;
 
                 default:
-                    System.out.println(libraryModel.getAllLibraryItems());
+                    System.out.println("Invalid option. Try again.");
                     break;
             }
         }
-        
         scanner.close();
     }
 
