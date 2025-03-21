@@ -131,7 +131,7 @@ public class Main {
                     break;
 
                 case "11":
-                    System.out.println("Feature not implemented yet.");
+                    System.out.println(libraryModel.getAllLibraryItems());
                     break;
                     
 
@@ -143,7 +143,7 @@ public class Main {
                     break;
 
                 default:
-                    System.out.println("Invalid input. Please try again.");
+                    System.out.println(libraryModel.getAllLibraryItems());
                     break;
             }
         }

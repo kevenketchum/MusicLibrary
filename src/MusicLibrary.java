@@ -161,16 +161,50 @@ public class MusicLibrary {
     			genres.replace(song.getGenre(), genres.get(song.getGenre() + 1));
     		}
     	}
+    	ArrayList<String> topGenres = getTopGenre(genres);
+    	for(String top : topGenres) {
+    		Playlist foundPlaylist = genrePlaylistExits(top);
+    		if(foundPlaylist != null) {
+    			foundPlaylist.replacePlaylist(getGenreSongs(top));
+    		}
+    		else {
+    			Playlist newPlaylist = new Playlist(top);
+    			for(Song song : musicLibrary) {
+    	    		if(song.getGenre().equalsIgnoreCase(top)) {
+    	    			newPlaylist.addSong(song);
+    	    			}
+    	    		}
+    			allPlaylists.add(newPlaylist);
+    		}
+    	}
     }
     
+    private ArrayList<Song> getGenreSongs(String genre){
+    	ArrayList<Song> answer = new ArrayList<Song>();
+    	for(Song song : musicLibrary) {
+    		if(song.getGenre().equalsIgnoreCase(genre)) {
+    			answer.add(song);
+    		}
+    	}
+    	return answer;
+    }
+    
+    private Playlist genrePlaylistExits(String genre) {
+    	for(Playlist playlist : allPlaylists) {
+    		if(playlist.getName().equalsIgnoreCase(genre)) {
+    			return playlist;
+    		}
+    	}
+    	return null;
+    }
     
     //hAVENT FINISHED FUNCTION gotta check if it works and modify some things so it actually wokrs in our model
-    private void getTopGenre(HashMap genres) {
+    private ArrayList<String> getTopGenre(HashMap<String, Integer> genres) {
         // Min-heap to store the top 10 genres based on song count
-        PriorityQueue<HashMap.Entry<String, Integer>> minHeap = new PriorityQueue<>(10, Comparator.comparingInt(HashMap.Entry -> HashMap.getValue()));
+        PriorityQueue<HashMap.Entry<String, Integer>> minHeap = new PriorityQueue<>(10, Comparator.comparingInt((entry) -> entry.getValue()));
 
         // Iterate through the HashMap entries
-        for (Map.Entry<String, Integer> entry : genres.entrySet()) {
+        for (HashMap.Entry<String, Integer> entry : genres.entrySet()) {
             minHeap.add(entry);
 
             // Keep the heap size to 10 by removing the smallest element if it exceeds size 10
@@ -180,13 +214,16 @@ public class MusicLibrary {
         }
 
         // Build the result list (in descending order of frequency)
-        List<String> result = new ArrayList<>();
+        ArrayList<String> result = new ArrayList<>();
         while (!minHeap.isEmpty()) {
             result.add(0, minHeap.poll().getKey()); // Add to the front to reverse order
         }
 
         return result;
     }
+
+
+    
     
     public void updateFavorites() {
     	for(Playlist playlist : allPlaylists) {

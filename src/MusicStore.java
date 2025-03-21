@@ -33,19 +33,6 @@ public class MusicStore {
         String albumTitle = albumDetails[0];
         String artist = albumDetails[1];
         String genre = albumDetails[2];
-        /*
-        String genre = albumDetails[2];
-        int year;
-        
-        try {
-            year = Integer.parseInt(albumDetails[3]);
-        } catch (NumberFormatException e) {
-            System.out.println("ERROR: Invalid year format in " + fileName);
-            return;
-        }
-
-		*/
-		
         // Create an empty album and add songs to it
         Album album = new Album(albumTitle, artist);
         
