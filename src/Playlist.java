@@ -4,7 +4,7 @@ import java.util.ArrayList;
 public class Playlist {
 
 	protected final String name;
-    protected final ArrayList<Song> songs;
+    protected  ArrayList<Song> songs;
     public Playlist(String name) {
         this.name = name;
         songs = new ArrayList<Song>();
@@ -37,9 +37,7 @@ public class Playlist {
     
     //Figure out a better way of changin the value of the playlist
     public void replacePlaylist(ArrayList<Song> replacement) {
-    	for(int i = 0; i < songs.size(); i++) {
-    		songs.set(i, replacement.get(i));
-    	}
+    	this.songs = replacement;
     }
     
     public String getName() {
