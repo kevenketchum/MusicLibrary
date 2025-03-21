@@ -66,15 +66,16 @@ public class Main {
             System.out.println("2. Search for an album by title");
             System.out.println("3. Search for a song by artist");
             System.out.println("4. Search for an album by artist");
-            System.out.println("5. Add or Remove a song from your library");
-            System.out.println("6. Add an album to your library");
-            System.out.println("7. Play a song from your library");
-            System.out.println("8. Create a playlist");
-            System.out.println("9. Add or Remove a song to a playlist");
-            System.out.println("10. Rate a song or add to favorites");
-            System.out.println("11. Search in your library");
-            System.out.println("12. View your library");
-            System.out.println("13. Exit");
+            System.out.println("5. Search for a song by genre");
+            System.out.println("6. Add or Remove a song from your library");
+            System.out.println("7. Add an album to your library");
+            System.out.println("8. Play a song from your library");
+            System.out.println("9. Create a playlist");
+            System.out.println("10. Add or Remove a song to a playlist");
+            System.out.println("11. Rate a song or add to favorites");
+            System.out.println("12. Search in your library");
+            System.out.println("13. View your library");
+            System.out.println("14. Exit");
             System.out.print("Enter your choice: ");
 
             String choice = scanner.nextLine().trim();
@@ -116,6 +117,12 @@ public class Main {
                         break;
 
                     case "5":
+                        System.out.print("Enter genre: ");
+                        String genre = scanner.nextLine().trim();
+                        musicStore.searchSongByGenre(genre);
+                        break;
+
+                    case "6":
                         System.out.print("Add or Remove a song? (a/r): ");
                         String actionLib = scanner.nextLine().trim();
                         System.out.print("Enter the song title: ");
@@ -129,13 +136,13 @@ public class Main {
                         }
                         break;
 
-                    case "6":
+                    case "7":
                         System.out.print("Enter the album title to add: ");
                         albumTitle = scanner.nextLine().trim();
                         System.out.println(libraryModel.addAlbum(albumTitle) ? "Album added to library." : "Album not found.");
                         break;
 
-                    case "7":
+                    case "8":
                         System.out.println("1. Play specific song\n2. Shuffle and play library\n3. Shuffle and play playlist");
                         String playChoice = scanner.nextLine().trim();
                         switch (playChoice) {
@@ -158,14 +165,14 @@ public class Main {
                         }
                         break;
 
-                    case "8":
+                    case "9":
                         System.out.print("Enter the name of the new playlist: ");
                         String playlistName = scanner.nextLine().trim();
                         libraryModel.addPlaylist(playlistName);
                         System.out.println("Playlist '" + playlistName + "' created.");
                         break;
 
-                    case "9":
+                    case "10":
                         System.out.print("Enter playlist name: ");
                         String plName = scanner.nextLine().trim();
                         System.out.print("Add or Remove a song? (a/r): ");
@@ -182,7 +189,7 @@ public class Main {
                         }
                         break;
 
-                    case "10":
+                    case "11":
                         System.out.print("Enter song title: ");
                         String rateTitle = scanner.nextLine().trim();
                         System.out.print("Enter rating (1-5): ");
@@ -198,8 +205,8 @@ public class Main {
                         }
                         break;
 
-                    case "11":
-                        System.out.println("Search Library by: 1) Title 2) Artist 3) Album");
+                    case "12":
+                        System.out.println("Search Library by: 1) Title 2) Artist 3) Album 4) Genre");
                         String searchOption = scanner.nextLine().trim();
                         switch (searchOption) {
                             case "1":
@@ -214,16 +221,20 @@ public class Main {
                                 System.out.print("Enter album: ");
                                 libraryModel.librarySearchAlbumByTitle(scanner.nextLine().trim());
                                 break;
+                            case "4":
+                                System.out.print("Enter genre: ");
+                                musicStore.searchSongByGenre(scanner.nextLine().trim());
+                                break;
                             default:
                                 System.out.println("Invalid option.");
                         }
                         break;
 
-                    case "12":
+                    case "13":
                         System.out.println(libraryModel.getAllLibraryItems());
                         break;
 
-                    case "13":
+                    case "14":
                         running = false;
                         System.out.println("Goodbye!");
                         libraryDataManager.saveLibrary(libraryModel.getMusicLibrary());
