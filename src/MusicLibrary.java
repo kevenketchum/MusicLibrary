@@ -25,7 +25,7 @@ public class MusicLibrary {
     }
 
     public List<Song> getMusicLibrary() {
-        return musicLibrary;
+        return new ArrayList<Song> (musicLibrary);
     }
 
     public List<Album> getAlbumList() {
@@ -33,7 +33,7 @@ public class MusicLibrary {
     }
 
     public List<Playlist> getAllPlaylists() {
-        return allPlaylists;
+        return new ArrayList<Playlist>(allPlaylists);
     }
 
     public void addSong(Song song) {
@@ -158,7 +158,7 @@ public class MusicLibrary {
     			genres.put(song.getGenre(), 1);
     		}
     		else {
-    			genres.replace(song.getGenre(), genres.get(song.getGenre() + 1));
+    			genres.replace(song.getGenre(), genres.get(song.getGenre())+1);
     		}
     	}
     	ArrayList<String> topGenres = getTopGenre(genres);
@@ -216,7 +216,13 @@ public class MusicLibrary {
         // Build the result list (in descending order of frequency)
         ArrayList<String> result = new ArrayList<>();
         while (!minHeap.isEmpty()) {
-            result.add(0, minHeap.poll().getKey()); // Add to the front to reverse order
+        	HashMap.Entry<String, Integer> current = minHeap.poll();
+        	if(current.getValue() >= 10) {
+        		result.add(0, current.getKey());
+        	}
+        	else {
+        		continue;
+        	}
         }
 
         return result;

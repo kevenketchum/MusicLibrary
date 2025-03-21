@@ -32,7 +32,7 @@ public class Album extends LibraryItem {
     public void printItem() {
         System.out.println("Album: " + name + " by " + artist+ libraryStatus()+"\n");
         for (Song song : songs) {
-            System.out.println("- " + song.getName());
+            System.out.println("- " + song.getName()+"\n");
         }
         System.out.println();
     }

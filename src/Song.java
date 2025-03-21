@@ -34,6 +34,10 @@ public class Song extends LibraryItem {
     	return genre;
     }
     
+    public String getTitle() {
+    	return name;
+    }
+    
     public String getAlbum() {
         return album;
     }
