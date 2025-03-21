@@ -85,6 +85,10 @@ public class Main {
                         System.out.print("Enter song title: ");
                         String songTitle = scanner.nextLine().trim();
                         musicStore.searchSongByTitle(songTitle);
+                        System.out.print("Would you like to see album information for this song? (y/n): ");
+                        if (scanner.nextLine().trim().equalsIgnoreCase("y")) {
+                            musicStore.searchAlbumBySongTitle(songTitle);
+                        }
                         break;
 
                     case "2":
@@ -97,6 +101,12 @@ public class Main {
                         System.out.print("Enter artist name: ");
                         String artist = scanner.nextLine().trim();
                         musicStore.searchSongByArtist(artist);
+                        System.out.print("Would you like to see album information for a song by this artist? (y/n): ");
+                        if (scanner.nextLine().trim().equalsIgnoreCase("y")) {
+                            System.out.print("Enter the song title: ");
+                            String songByArtist = scanner.nextLine().trim();
+                            musicStore.searchAlbumBySongAuthor(songByArtist);
+                        }
                         break;
 
                     case "4":
