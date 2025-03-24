@@ -87,19 +87,21 @@ public class MusicStore {
     	}
     }
 
-    public void searchSongByTitle(String title) {
+    public Song searchSongByTitle(String title) {
     	boolean found = false;
         for (Album album : albums) {
             for (Song song : album.getSongs()) {
                 if (song.getName().equalsIgnoreCase(title)) {
                 	song.printItem(); 
                 	found = true;
+                	return song;
                 }
             }
         }
         if(!found) {
         	System.out.println("Song not found.");
         }
+        return null;
     }
 
     public void searchAlbumByTitle(String title) {
@@ -117,19 +119,21 @@ public class MusicStore {
     
     
     
-    public void searchSongByArtist(String artist) {
+    public Song searchSongByArtist(String artist) {
     	boolean found = false;
         for (Album album : albums) {
             for (Song song : album.getSongs()) {
                 if (song.getAuthor().equalsIgnoreCase(artist)) {
                 	song.printItem();
                 	found = true;
+                	return song;
                 }
             }
         }
         if(!found) {
         	System.out.println("Artist not found.");
         }
+        return null;
     }
     
     public void searchAlbumByArtist(String artist) {

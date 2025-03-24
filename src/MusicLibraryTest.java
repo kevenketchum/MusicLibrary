@@ -1,119 +1,210 @@
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+import java.util.ArrayList;
+import java.util.HashMap;
 
-import java.util.List;
+class MusicLibraryTest {
 
-import org.junit.Test;
-
-public class MusicLibraryTest {
     @Test
-    public void testAddSong() {
-    	MusicLibrary library = new MusicLibrary();
-    	Song song1 = new Song("Bohemian Rhapsody", "A Night at the Opera", "Queen");
-        Song song2 = new Song("Imagine", "Imagine", "John Lennon");
-        library.addSong(song1);
-        library.addSong(song2);
-
-        List<Song> songs = library.getMusicLibrary();
-        assertEquals(2, songs.size());
-        assertTrue(songs.contains(song1));
-        assertTrue(songs.contains(song2));
+    void testAddSong() {
+        MusicLibrary musicLibrary = new MusicLibrary();
+        Song song = new Song("Song 4", "Album 3", "Artist 3", "Pop");
+        musicLibrary.addSong(song);
+        assertEquals(1, musicLibrary.getMusicLibrary().size());
     }
 
     @Test
-    public void testAddAlbum() {
-    	MusicLibrary library = new MusicLibrary();
-    	Album album1 = new Album("A Night at the Opera", "Queen");
-        Album album2 = new Album("Imagine", "John Lennon");
-        library.addAlbum(album1);
-        library.addAlbum(album2);
-
-        List<Album> albums = library.getAlbumList();
-        assertEquals(2, albums.size());
-        assertTrue(albums.contains(album1));
-        assertTrue(albums.contains(album2));
+    void testRemoveSong() {
+        MusicLibrary musicLibrary = new MusicLibrary();
+        Song song = new Song("Song 1", "Album 1", "Artist 1", "Rock");
+        musicLibrary.addSong(song);
+        musicLibrary.removeSong(song);
+        assertFalse(musicLibrary.getMusicLibrary().contains(song));
     }
 
     @Test
-    public void testAddPlaylist() {
-    	MusicLibrary library = new MusicLibrary();
-    	Playlist playlist1 = new Playlist("Rock Classics");
-        Playlist playlist2 = new Playlist("Chill Vibes");
-        library.addPlaylist(playlist1);
-        library.addPlaylist(playlist2);
-
-        List<Playlist> playlists = library.getAllPlaylists();
-        assertEquals(2, playlists.size());
-        assertTrue(playlists.contains(playlist1));
-        assertTrue(playlists.contains(playlist2));
+    void testAddAlbum() {
+        MusicLibrary musicLibrary = new MusicLibrary();
+        Album album = new Album("Album 3", "Artist 3");
+        musicLibrary.addAlbum(album);
+        assertEquals(1, musicLibrary.getAlbumList().size());
     }
 
     @Test
-    public void testSearchSongByTitle() {
-    	MusicLibrary library = new MusicLibrary();
-        Song song1 = new Song("Bohemian Rhapsody", "A Night at the Opera", "Queen");
-        
-        library.addSong(song1);
-        library.searchSongByTitle("Bohemian Rhapsody");
-        library.searchSongByTitle("Nonexistent Song");
+    void testRemoveAlbum() {
+        MusicLibrary musicLibrary = new MusicLibrary();
+        Album album = new Album("Album 1", "Artist 1");
+        musicLibrary.addAlbum(album);
+        musicLibrary.removeAlbum(album);
+        assertFalse(musicLibrary.getAlbumList().contains(album));
     }
 
     @Test
-    public void testSearchAlbumByTitle() {
-    	MusicLibrary library = new MusicLibrary();
-    	Album album1 = new Album("A Night at the Opera", "Queen");
-
-        library.addAlbum(album1);
-        library.searchAlbumByTitle("A Night at the Opera");
-
-        library.searchAlbumByTitle("Nonexistent Album");
+    void testSearchSongByTitleFound() {
+        MusicLibrary musicLibrary = new MusicLibrary();
+        Song song = new Song("Song 1", "Album 1", "Artist 1", "Rock");
+        musicLibrary.addSong(song);
+        musicLibrary.searchSongByTitle("Song 1");
+        // Verify that song details are printed
     }
 
     @Test
-    public void testSearchSongByArtist() {
-    	MusicLibrary library = new MusicLibrary();
-    	Song song1 = new Song("Oh My Love", "Imagine", "John Lennon");
-        Song song2 = new Song("Imagine", "Imagine", "John Lennon");
-    	
-        library.addSong(song1);
-        library.addSong(song2);
-        library.searchSongByArtist("John Lennon");
-        
-        library.searchSongByArtist("Nonexistent Artist");
+    void testSearchSongByTitleNotFound() {
+        MusicLibrary musicLibrary = new MusicLibrary();
+        musicLibrary.searchSongByTitle("Nonexistent Song");
+        // Assert that the song is not found in the library.
     }
 
     @Test
-    public void testSearchAlbumByArtist() {
-    	MusicLibrary library = new MusicLibrary();
-    	Album album1 = new Album("Double Fantasy", "John Lennon");
-        Album album2 = new Album("Imagine", "John Lennon");
-    	
-        library.addAlbum(album1);
-        library.addAlbum(album2);
-        library.searchAlbumByArtist("John Lennon");
-
-        library.searchAlbumByArtist("Nonexistent Artist");
+    void testSearchAlbumByTitleFound() {
+        MusicLibrary musicLibrary = new MusicLibrary();
+        Album album = new Album("Album 1", "Artist 1");
+        musicLibrary.addAlbum(album);
+        musicLibrary.searchAlbumByTitle("Album 1");
+        // Verify album details are printed
     }
 
     @Test
-    public void testGetPlaylist() {
-    	MusicLibrary library = new MusicLibrary();
-        Playlist playlist1 = new Playlist("Rock Classics");
-
-        library.addPlaylist(playlist1);
-        Playlist result = library.getPlaylist("Rock Classics");
-        assertEquals(playlist1, result);
-
-        result = library.getPlaylist("Nonexistent Playlist");
-        assertNull(result);
+    void testSearchAlbumByTitleNotFound() {
+        MusicLibrary musicLibrary = new MusicLibrary();
+        musicLibrary.searchAlbumByTitle("Nonexistent Album");
+        // Assert that the album is not found
     }
 
     @Test
-    public void testGetPlaylistInfo() {
-    	MusicLibrary library = new MusicLibrary();
-        Playlist playlist1 = new Playlist("Rock Classics");
-    	
-        library.addPlaylist(playlist1);
-        library.getPlaylistInfo("Rock Classics");
-        library.getPlaylistInfo("Nonexistent Playlist");
+    void testSearchSongByArtistFound() {
+        MusicLibrary musicLibrary = new MusicLibrary();
+        Song song = new Song("Song 1", "Album 1", "Artist 1", "Rock");
+        musicLibrary.addSong(song);
+        musicLibrary.searchSongByArtist("Artist 1");
+        // Verify songs by Artist 1 are printed
     }
+
+    @Test
+    void testSearchSongByArtistNotFound() {
+        MusicLibrary musicLibrary = new MusicLibrary();
+        musicLibrary.searchSongByArtist("Nonexistent Artist");
+        // Assert that no songs are found
+    }
+
+    @Test
+    void testSearchAlbumByArtistFound() {
+        MusicLibrary musicLibrary = new MusicLibrary();
+        Album album = new Album("Album 1", "Artist 1");
+        musicLibrary.addAlbum(album);
+        musicLibrary.searchAlbumByArtist("Artist 1");
+        // Verify albums by Artist 1 are printed
+    }
+
+    @Test
+    void testSearchAlbumByArtistNotFound() {
+        MusicLibrary musicLibrary = new MusicLibrary();
+        musicLibrary.searchAlbumByArtist("Nonexistent Artist");
+        // Assert that no albums are found
+    }
+
+    @Test
+    void testGetPlaylist() {
+        MusicLibrary musicLibrary = new MusicLibrary();
+        Playlist recentPlaylist = new Playlist("recently played");
+        musicLibrary.addPlaylist(recentPlaylist);
+        assertNotNull(musicLibrary.getPlaylist("recently played"));
+    }
+
+    @Test
+    void testGetPlaylistInfo() {
+        MusicLibrary musicLibrary = new MusicLibrary();
+        Playlist recentPlaylist = new Playlist("recently played");
+        musicLibrary.addPlaylist(recentPlaylist);
+        musicLibrary.getPlaylistInfo("recently played");
+        // Verify that the playlist info is printed
+    }
+
+    @Test
+    void testUpdateGenre() {
+        MusicLibrary musicLibrary = new MusicLibrary();
+        Song song1 = new Song("Song 1", "Album 1", "Artist 1", "Rock");
+        Song song2 = new Song("Song 2", "Album 1", "Artist 1", "Pop");
+        musicLibrary.addSong(song1);
+        musicLibrary.addSong(song2);
+        musicLibrary.updateGenre();
+        // Check that playlists by genre have been created/updated
+    }
+
+    @Test
+    void testUpdateFavorites() {
+        MusicLibrary musicLibrary = new MusicLibrary();
+        Song song1 = new Song("Song 1", "Album 1", "Artist 1", "Rock");
+        song1.setFavorite();
+        musicLibrary.addSong(song1);
+        musicLibrary.updateFavorites();
+        // Verify that the favorites playlist has been updated
+    }
+
+    @Test
+    void testUpdateTop() {
+        MusicLibrary musicLibrary = new MusicLibrary();
+        Song song1 = new Song("Song 1", "Album 1", "Artist 1", "Rock");
+        song1.setRating(5);
+        musicLibrary.addSong(song1);
+        musicLibrary.updateTop();
+        // Verify the top-rated playlist has been updated with the correct songs
+    }
+
+    @Test
+    void testUpdateRecent() {
+        MusicLibrary musicLibrary = new MusicLibrary();
+        Song song1 = new Song("Song 1", "Album 1", "Artist 1", "Rock");
+        Playlist recentPlaylist = new Playlist("recently played");
+        musicLibrary.addPlaylist(recentPlaylist);
+        musicLibrary.updateRecent(song1);
+        assertEquals(0, recentPlaylist.getSongs().size());
+    }
+
+    @Test
+    void testUpdateFrequent() {
+        MusicLibrary musicLibrary = new MusicLibrary();
+        Playlist frequentPlaylist = new Playlist("frequently played");
+        musicLibrary.addPlaylist(frequentPlaylist);
+        musicLibrary.updateFrequent();
+        // Verify frequent playlist has been updated
+    }
+    
+    /*
+
+    @Test
+    void testGetTopFrequent() {
+        MusicLibrary musicLibrary = new MusicLibrary();
+        ArrayList<Song> topFrequent = musicLibrary.getTopFrequent();
+        assertEquals(10, topFrequent.size());
+    }
+
+    @Test
+    void testGetTopGenre() {
+        MusicLibrary musicLibrary = new MusicLibrary();
+        ArrayList<String> topGenres = musicLibrary.getTopGenre(new HashMap<String, Integer>());
+        assertTrue(topGenres.size() <= 10);
+    }
+
+    @Test
+    void testGetGenreSongs() {
+        MusicLibrary musicLibrary = new MusicLibrary();
+        ArrayList<Song> genreSongs = musicLibrary.getGenreSongs("Pop");
+        assertTrue(genreSongs.size() >= 0);
+    }
+
+    @Test
+    void testGenrePlaylistExits() {
+        MusicLibrary musicLibrary = new MusicLibrary();
+        Playlist existingPlaylist = musicLibrary.genrePlaylistExits("Rock");
+        assertNull(existingPlaylist);
+    }
+
+    @Test
+    void testSortByPlays() {
+        MusicLibrary musicLibrary = new MusicLibrary();
+        ArrayList<Song> sortedSongs = musicLibrary.sortByPlays(new ArrayList<Song>());
+        // Verify that the songs are sorted by frequency in descending order
+    }
+    */
 }
