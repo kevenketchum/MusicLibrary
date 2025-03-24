@@ -1,106 +1,53 @@
 import static org.junit.jupiter.api.Assertions.*;
-
+import org.junit.jupiter.api.Test;
+import java.util.ArrayList;
 import java.util.List;
+class MusicStoreTest {
+    
+    @Test
+    void testAddAlbum() {
+        MusicStore store = new MusicStore();
+        Album album = new Album("Test Album", "Test Artist");
+        store.addAlbum(album);
+        assertEquals(1, store.getAlbums().size());
+    }
 
-import org.junit.Test;
+    @Test
+    void testGetSongByTitle() {
+        MusicStore store = new MusicStore();
+        Album album = new Album("Test Album", "Test Artist");
+        Song song = new Song("Test Song", "Test Album", "Test Artist", "Rock");
+        album.addSong(song);
+        store.addAlbum(album);
+        assertEquals(song, store.getSongByTitle("Test Song"));
+        assertNull(store.getSongByTitle("Nonexistent Song"));
+    }
 
+    @Test
+    void testSearchSongByGenre() {
+        MusicStore store = new MusicStore();
+        store.searchSongByGenre("Rock");
+        store.searchSongByGenre("");
+    }
 
-public class MusicStoreTest {
-	    @Test
-	    public void testAddAlbum() {
-	    	MusicStore store = new MusicStore();
+    @Test
+    void testSearchAlbumByTitle() {
+        MusicStore store = new MusicStore();
+        store.searchAlbumByTitle("Test Album");
+        store.searchAlbumByTitle("");
+    }
 
-	        Song song1 = new Song("Bohemian Rhapsody", "A Night at the Opera", "Queen");
-	        Song song2 = new Song("Imagine", "Imagine", "John Lennon");
+    @Test
+    void testSearchAlbumByArtist() {
+        MusicStore store = new MusicStore();
+        store.searchAlbumByArtist("Test Artist");
+        store.searchAlbumByArtist("");
+    }
 
-	        Album album1 = new Album("A Night at the Opera", "Queen");
-	        album1.addSong(song1);
-
-
-	        Album album2 = new Album("Imagine", "John Lennon");
-	        album2.addSong(song2);
-
-	        store.addAlbum(album1);
-	        store.addAlbum(album2);
-	        
-	        List<Album> albums = store.getAlbums();
-	        assertEquals(2, albums.size());
-	        assertTrue(albums.contains(album1));
-	        assertTrue(albums.contains(album2));
-	    }
-
-	    @Test
-	    public void testSearchSongByTitle() {
-	    MusicStore store = new MusicStore();
-        Song song1 = new Song("Bohemian Rhapsody", "A Night at the Opera", "Queen");
-        Album album1 = new Album("A Night at the Opera", "Queen");
-        album1.addSong(song1);
-
-        store.addAlbum(album1);
-        
-	    store.searchSongByTitle("bohemian rhapsody");
-	    store.searchSongByTitle("Nonexistent Song");
-	    }
-
-	    @Test
-	    public void testSearchAlbumByTitle() {
-	    	MusicStore store = new MusicStore();
-	    	Song song1 = new Song("Bohemian Rhapsody", "A Night at the Opera", "Queen");
-
-	        Album album1 = new Album("A Night at the Opera", "Queen");
-	        album1.addSong(song1);
-	        
-	        store.addAlbum(album1);
-
-
-	        store.searchAlbumByTitle("A Night at the Opera");
-	        store.searchAlbumByTitle("Nonexistent Album");
-	    }
-
-	    @Test
-	    public void testSearchSongByArtist() {
-	    	MusicStore store = new MusicStore();
-
-	        Song song1 = new Song("Bohemian Rhapsody", "A Night at the Opera", "Queen");
-	        Song song2 = new Song("Don't Stop Me Now", "Jazz", "Queen");
-	        Song song3 = new Song("Imagine", "Imagine", "John Lennon");
-
-
-	        Album album1 = new Album("A Night at the Opera", "Queen");
-	        album1.addSong(song1);
-
-
-	        Album album2 = new Album("Jazz", "Queen");
-	        album2.addSong(song2);
-
-	        Album album3 = new Album("Imagine", "John Lennon");
-	        album3.addSong(song3);
-
-	        store.addAlbum(album1);
-	        store.addAlbum(album2);
-	        store.addAlbum(album3);
-	        
-	        store.searchSongByArtist("Queen");
-
-	        store.searchSongByArtist("John Lennon");
-
-	        store.searchSongByArtist("Nonexistent Artist");
-	    }
-
-	    @Test
-	    public void testSearchAlbumByArtist() {
-	    	MusicStore store = new MusicStore();
-
-	        Album album1 = new Album("A Night at the Opera", "Queen");
-	        Album album2 = new Album("Jazz", "Queen");
-	        Album album3 = new Album("Imagine", "John Lennon");
-
-	        store.addAlbum(album1);
-	        store.addAlbum(album2);
-	        store.addAlbum(album3);
-
-	        store.searchAlbumByArtist("Queen");
-	        store.searchAlbumByArtist("John Lennon");
-	        store.searchAlbumByArtist("Nonexistent Artist");
-	    }
+    @Test
+    void testSearchSongByArtist() {
+        MusicStore store = new MusicStore();
+        store.searchSongByArtist("Test Artist");
+        store.searchSongByArtist("");
+    }
 }

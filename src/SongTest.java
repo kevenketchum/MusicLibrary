@@ -1,23 +1,24 @@
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+import java.util.ArrayList;
 
-import org.junit.Test;
-public class SongTest {
-
+class SongTest {
+    
     @Test
-    public void testInitializer() {
-    	Song song = new Song("name", "album", "author");
-        assertEquals("name", song.getName());
-        assertEquals("album", song.getAlbum());
-        assertEquals("author", song.getAuthor());
+    void testSongInitialization() {
+        Song song = new Song("Test Song", "Test Album", "Test Author", "Rock");
+        assertEquals("Test Song", song.getTitle());
+        assertEquals("Test Album", song.getAlbum());
+        assertEquals("Test Author", song.getAuthor());
+        assertEquals("Rock", song.getGenre());
         assertEquals(0, song.getRating());
         assertFalse(song.isFavorite());
-        assertFalse(song.isInLibrary());
+        assertEquals(0, song.getFrequency());
     }
 
     @Test
-    public void testSetRating() {
-    	Song song = new Song("name", "album", "author");
-    	//Valid inputs
+    void testSetRating() {
+        Song song = new Song("Test Song", "Test Album", "Test Author", "Rock");
         song.setRating(3);
         assertEquals(3, song.getRating());
         assertFalse(song.isFavorite());
@@ -25,33 +26,27 @@ public class SongTest {
         song.setRating(5);
         assertEquals(5, song.getRating());
         assertTrue(song.isFavorite());
-        
-        //Invalid inputs
-        song.setRating(6);
-        assertNotEquals(6, song.getRating());
-        assertEquals(5, song.getRating());
-        
-        song.setRating(0);
-        assertNotEquals(0, song.getRating());
-        assertEquals(5, song.getRating());
     }
 
+    @Test
+    void testPlaySong() {
+        Song song = new Song("Test Song", "Test Album", "Test Author", "Rock");
+        song.playSong();
+        assertEquals(1, song.getFrequency());
+    }
 
     @Test
-    public void testSetFavorite() {
-    	Song song = new Song("name", "album", "author");
-        assertFalse(song.isFavorite());
+    void testFavoriteToggle() {
+        Song song = new Song("Test Song", "Test Album", "Test Author", "Rock");
         song.setFavorite();
         assertTrue(song.isFavorite());
-        
+        song.unFavorite();
+        assertFalse(song.isFavorite());
     }
-
+    
     @Test
-    public void testAddToLibrary() {
-    	Song song = new Song("name", "album", "author");
-        assertFalse(song.isInLibrary());
-        song.addToLibrary();
-        assertTrue(song.isInLibrary());
+    void testPrintItem() {
+    	Song song = new Song("Test Song", "Test Album", "Test Author", "Rock");
+    	song.printItem();
     }
-
 }

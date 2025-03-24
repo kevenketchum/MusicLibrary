@@ -85,10 +85,10 @@ public class Main {
                     case "1":
                         System.out.print("Enter song title: ");
                         String songTitle = scanner.nextLine().trim();
-                        musicStore.searchSongByTitle(songTitle);
+                        Song search =musicStore.searchSongByTitle(songTitle);
                         System.out.print("Would you like to see album information for this song? (y/n): ");
                         if (scanner.nextLine().trim().equalsIgnoreCase("y")) {
-                            musicStore.searchAlbumBySongTitle(songTitle);
+                        	musicStore.searchAlbumByTitle(search.getAlbum());
                         }
                         break;
 
@@ -101,12 +101,10 @@ public class Main {
                     case "3":
                         System.out.print("Enter artist name: ");
                         String artist = scanner.nextLine().trim();
-                        musicStore.searchSongByArtist(artist);
+                        Song found = musicStore.searchSongByArtist(artist);
                         System.out.print("Would you like to see album information for a song by this artist? (y/n): ");
                         if (scanner.nextLine().trim().equalsIgnoreCase("y")) {
-                            System.out.print("Enter the song title: ");
-                            String songByArtist = scanner.nextLine().trim();
-                            musicStore.searchAlbumBySongAuthor(songByArtist);
+                            musicStore.searchAlbumByTitle(found.getAlbum());
                         }
                         break;
 
